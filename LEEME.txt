@@ -1,0 +1,35 @@
+SIDIGAP - Sitio web en una sola página
+======================================
+
+Contenido de la carpeta
+- index.html   -> toda la página (HTML + CSS + JavaScript en un solo archivo)
+- fonts/       -> las tipografías que usaba el diseño de Canva
+- img/         -> imágenes y logos extraídos del sitio de Canva
+
+Cómo verlo
+Abre index.html con doble clic en cualquier navegador. Mantén las carpetas
+fonts/ e img/ junto al archivo, porque la página las usa con rutas relativas.
+
+Cómo publicarlo
+Sube la carpeta completa a cualquier hosting estático (GitHub Pages,
+Netlify, Vercel, un hosting tradicional, etc.).
+
+Secciones
+El menú superior lleva a #inicio, #sistema y #contacto dentro de la misma
+página. El botón "COTIZA AQUÍ" baja a la sección de contacto.
+
+Videos de fondo
+Los dos videos de fondo (portada y cierre) se siguen cargando desde el sitio
+de Canva (sidigap.my.canva.site). Si ese sitio se despublica, la página
+muestra en su lugar una imagen fija del video. Para que no dependan de Canva:
+1. Descarga los videos desde Canva (o desde esas direcciones):
+   https://sidigap.my.canva.site/_assets/video/ba8e113ec47b95e8d392e77bdb0e706b.mp4
+   https://sidigap.my.canva.site/_assets/video/6bf95fce735a92c1150624862044ecca.mp4
+2. Guárdalos en una carpeta video/ como video/inicio.mp4 y video/cierre.mp4
+3. En index.html reemplaza esas dos direcciones por video/inicio.mp4 y
+   video/cierre.mp4
+
+Colores principales
+- Teal       #0a7e8f
+- Verde      #17a488
+- Petróleo   #003a43

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIDIGAP</title>
+<meta name="description" content="SIDIGAP - Sistema Digital Integral de Gestión de Activos y Productos">
+<style>
+/* Layout: una sola página con tres secciones (Inicio, Sistema, Contacto) que replican el diseño de Canva */
+@font-face { font-family: "SIDIGAP Sans"; font-weight: 400; font-display: swap; src: url("fonts/sidigap-a-400.woff") format("woff"); }
+@font-face { font-family: "SIDIGAP Sans"; font-weight: 700; font-display: swap; src: url("fonts/sidigap-a-700.woff") format("woff"); }
+@font-face { font-family: "SIDIGAP Planes"; font-weight: 400; font-display: swap; src: url("fonts/sidigap-b.woff") format("woff"); }
+@font-face { font-family: "SIDIGAP Contacto"; font-weight: 400; font-display: swap; src: url("fonts/sidigap-c.woff") format("woff"); }
+
+:root {
+  color-scheme: light;
+  --teal: #0a7e8f;
+  --verde: #17a488;
+  --petroleo: #003a43;
+  --blanco: #ffffff;
+  --negro: #000000;
+  --texto-claro: #ffffff;
+  --rojo: #ff3131;
+  --naranjo: #ff751f;
+  --naranjo-claro: #ff914d;
+  --amarillo: #ffde59;
+  --ambar: #ffbd59;
+  --verde-claro: #7ed957;
+  --verde-intenso: #00bf63;
+  --azul: #5170ff;
+  --font-a: "SIDIGAP Sans", "Glacial Indifference", "Century Gothic", "Avenir Next", system-ui, sans-serif;
+  --font-b: "SIDIGAP Planes", "League Spartan", "Century Gothic", system-ui, sans-serif;
+  --font-c: "SIDIGAP Contacto", "Helvetica Neue", Arial, sans-serif;
+  --nav-h: 54px;
+  --ancho: 1351px;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--blanco); color: var(--negro); font-family: var(--font-a); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--verde); outline-offset: 3px; }
+
+/* Gutter lateral */
+.wrap { width: 100%; max-width: var(--ancho); margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* ---------- Navegación ---------- */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--blanco); }
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; height: var(--nav-h); background: var(--blanco); }
+.nav .wrap { height: 100%; display: flex; align-items: center; position: relative; }
+.nav-logo { position: absolute; left: max(14px, env(safe-area-inset-left, 0px)); top: 8px; width: 28px; }
+.nav ul { list-style: none; margin: 0 auto; padding: 0; display: flex; }
+.nav li { width: clamp(84px, 13.25vw, 179px); text-align: center; }
+.nav a { display: inline-block; text-decoration: none; text-transform: uppercase; color: var(--teal); font-size: clamp(15px, 1.38vw, 18.67px); line-height: 26px; padding-block: 1px 12px; border-bottom: 2px solid transparent; transition: border-color .2s; }
+.nav a.activo { border-bottom-color: var(--teal); }
+
+/* ---------- Video con logo (hero de inicio y cierre) ---------- */
+.video-logo { position: relative; overflow: hidden; background: #1c2a2f center / cover no-repeat; aspect-ratio: 1351 / 760; min-height: 440px; max-height: 760px; width: 100%; }
+.video-logo video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.circulo { position: absolute; left: 50%; border-radius: 50%; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); transform: translateX(-50%); }
+.video-logo .logo { position: absolute; left: 50%; transform: translateX(-50%); }
+.hero-inicio { background-image: url("img/video-inicio.webp"); }
+.hero-inicio .circulo { width: min(36.4%, 492px); aspect-ratio: 1; top: 8.2%; }
+.hero-inicio .logo { width: min(43.3%, 585px); top: 17.4%; }
+.hero-inicio .lema { position: absolute; left: 50%; transform: translateX(-50%); bottom: 4.5%; width: min(92%, 1089px); margin: 0; text-align: center; color: var(--texto-claro); font-weight: 700; font-size: clamp(16px, 1.98vw, 26.67px); line-height: 1.39; text-shadow: 0 0 6px rgba(0,0,0,.75), 0 1px 2px rgba(0,0,0,.9); text-wrap: balance; }
+.cierre { background-image: url("img/video-cierre.webp"); }
+.cierre .circulo { width: min(47.2%, 637px); aspect-ratio: 1; top: 6.2%; }
+.cierre .logo { width: min(65.9%, 890px); top: 9.5%; }
+
+/* ---------- Quiénes somos ---------- */
+.quienes { display: grid; grid-template-columns: minmax(0, 678px) minmax(0, 1fr); column-gap: 72px; align-items: start; max-width: var(--ancho); margin-inline: auto; }
+.quienes .texto { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 0; padding-block: 64px 48px; margin-left: clamp(0px, 4.5vw, 60px); }
+.quienes h2 { margin: 0 0 14px; text-align: center; color: var(--teal); font-size: clamp(30px, 3.16vw, 42.67px); line-height: 1.38; font-weight: 700; }
+.quienes p { margin: 0; color: var(--teal); font-weight: 700; font-size: clamp(17px, 1.78vw, 24px); line-height: 1.375; text-align: justify; hyphens: auto; }
+.quienes .foto { height: 718px; background: url("img/bodega.webp") center / cover no-repeat; }
+
+/* ---------- Infraestructura ---------- */
+.infra { padding-block: 92px 120px; }
+.infra h2 { margin: 0 0 72px; text-align: center; font-weight: 700; font-size: clamp(28px, 3.16vw, 42.67px); line-height: 1.38; text-wrap: balance; }
+.infra .intro { margin: 0 auto 32px; max-width: 1143px; text-transform: uppercase; text-align: justify; font-size: clamp(16px, 1.78vw, 24px); line-height: 1.375; hyphens: auto; }
+.servicios { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; max-width: 1180px; margin-inline: auto; }
+.servicios li { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.servicios img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.servicios h3 { margin: 0; font-size: 18.67px; line-height: 1.4; font-weight: 700; letter-spacing: .02em; }
+.servicios p { margin: 0; font-size: 16px; line-height: 1.375; }
+
+/* ---------- Planes ---------- */
+.planes { background: var(--teal); color: var(--texto-claro); padding-block: 52px 64px; }
+.planes h2 { margin: 0; font-size: clamp(28px, 3.16vw, 42.67px); line-height: 1.38; font-weight: 700; padding-left: clamp(0px, 4.3vw, 58px); }
+.planes .intro { margin: 4px 0 40px; max-width: 862px; padding-left: clamp(0px, 4.1vw, 55px); text-align: justify; font-size: clamp(16px, 1.78vw, 24px); line-height: 1.375; }
+.tarjetas { display: grid; grid-template-columns: repeat(3, minmax(0, 360px)); justify-content: center; gap: clamp(16px, 3.4vw, 46px); list-style: none; margin: 0; padding: 0; }
+.tarjeta { background: var(--blanco); border-radius: 26px; padding: 9px; min-width: 0; }
+.tarjeta-in { height: 100%; border: 3px solid var(--teal); border-radius: 20px; padding: 26px 22px 24px; display: flex; flex-direction: column; color: var(--teal); font-family: var(--font-b); }
+.tarjeta h3 { margin: 0 0 30px; text-align: center; color: var(--negro); font-family: var(--font-a); font-weight: 700; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.3; text-transform: uppercase; text-wrap: balance; }
+.tarjeta .para { margin: 0 auto; max-width: 260px; text-align: center; font-size: 20px; line-height: 1.4; }
+.tarjeta hr { border: 0; border-top: 3px solid var(--teal); margin: 18px 0; }
+.tarjeta ul { margin: 0; padding: 0 0 0 26px; font-size: 20px; line-height: 1.4; letter-spacing: -.022em; flex: 1; }
+.tarjeta .precio { margin: 0; text-align: center; font-size: clamp(24px, 2.37vw, 32px); line-height: 1.38; white-space: nowrap; }
+.tarjeta .precio.cotizar { font-size: 28px; }
+.planes .nota { margin: 30px auto 36px; max-width: 1171px; text-align: center; font-weight: 700; font-size: clamp(15px, 1.58vw, 21.33px); line-height: 1.36; }
+.boton { display: flex; align-items: center; justify-content: center; width: min(435px, 100%); height: 83px; margin-inline: auto; background: var(--verde); color: var(--texto-claro); text-decoration: none; text-transform: uppercase; font-weight: 700; font-size: 24px; border-radius: 999px; border: 3px solid var(--blanco); box-shadow: 0 6px 14px rgba(0,0,0,.25); transition: transform .15s; }
+.boton:hover { transform: translateY(-2px); }
+
+/* ---------- Sistema: portada ---------- */
+.hero-sistema { position: relative; overflow: hidden; background: var(--petroleo); min-height: 760px; }
+.hero-sistema .fondo { position: absolute; inset: 0; background: url("img/estanterias.webp") center / cover no-repeat; }
+.hero-sistema .sombra { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 55%, rgba(0,0,0,0) 100%), url("img/degradado.png") left bottom / 444px 100% no-repeat; }
+.hero-sistema .laptop { position: absolute; top: 0; bottom: 0; right: 0; width: 37.6%; background: url("img/laptop.webp") 20% center / cover no-repeat; }
+.hero-sistema .contenido { position: relative; max-width: 800px; padding-block: 80px 60px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px; margin-left: clamp(0px, 4.6vw, 62px); }
+.titulo-sistema { display: flex; align-items: flex-end; gap: 4px; margin: 0; }
+.titulo-sistema img { width: clamp(70px, 8.4vw, 114px); }
+.titulo-sistema span { color: var(--verde); font-weight: 700; font-size: clamp(56px, 7.18vw, 97px); line-height: .9; letter-spacing: -.027em; padding-bottom: 14px; }
+.hero-sistema .bajada { margin: 18px 0 18px; color: var(--teal); font-size: clamp(22px, 2.47vw, 33.33px); line-height: 1.38; }
+.hero-sistema .desc { margin: 0; max-width: 717px; color: var(--verde); font-weight: 700; font-size: clamp(18px, 1.98vw, 26.67px); line-height: 1.39; text-align: justify; hyphens: auto; }
+
+/* ---------- Sistema: mapas ---------- */
+.mapas { padding-block: 40px 40px; }
+.mapas h2, .vision h2 { margin: 0 0 26px; text-align: center; color: var(--teal); font-weight: 700; font-size: clamp(26px, 3.16vw, 42.67px); line-height: 1.38; text-wrap: balance; }
+.mapas p { margin: 0 auto 26px; max-width: 1235px; color: var(--teal); font-weight: 700; font-size: clamp(17px, 1.98vw, 26.67px); line-height: 1.39; text-align: justify; hyphens: auto; }
+.mapas p.heat { font-size: clamp(17px, 2.07vw, 28px); margin-top: 24px; }
+.diagrama { overflow-x: auto; }
+.desliza { display: none; margin: 0 0 6px; font-family: var(--font-a); font-size: 13px; color: var(--teal); text-align: right; }
+@media (max-width: 700px) { .desliza { display: block; } }
+.diagrama svg { display: block; width: 100%; min-width: 640px; height: auto; font-family: var(--font-b); }
+.vision { padding-block: 30px 0; min-height: 360px; }
+
+/* ---------- Estanterías clicables y pop-up de detalle ---------- */
+.zona { fill: transparent; stroke: transparent; stroke-width: 4; cursor: pointer; transition: fill .15s, stroke .15s; }
+.zona:hover { fill: rgba(0,0,0,.12); stroke: #003a43; }
+.zona:focus-visible { outline: none; fill: rgba(0,0,0,.12); stroke: #003a43; stroke-width: 6; }
+.mapas p.ayuda-mapa { margin: 12px auto 0; font-size: 16px; font-weight: 400; text-align: center; color: var(--teal); }
+.detalle { width: min(620px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 0; border-radius: 22px; background: var(--blanco); color: var(--negro); box-shadow: 0 24px 60px rgba(0,0,0,.35); overflow: auto; }
+.detalle::backdrop { background: rgba(0, 30, 35, .62); }
+.detalle-in { padding: 26px clamp(18px, 4vw, 32px) 28px; display: flex; flex-direction: column; gap: 18px; }
+.detalle header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.detalle h2 { margin: 0; color: var(--teal); font-size: clamp(26px, 4vw, 34px); line-height: 1.15; }
+.detalle .sub { margin: 4px 0 0; font-size: 16px; color: var(--teal); }
+.detalle .cerrar { flex: none; width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--teal); background: var(--blanco); color: var(--teal); font-size: 22px; line-height: 1; cursor: pointer; }
+.detalle .cerrar:hover { background: var(--teal); color: var(--blanco); }
+.detalle .cerrar:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+.escala svg { display: block; width: 100%; height: auto; font-family: var(--font-b); }
+.frecuencia { display: flex; align-items: center; gap: 10px; margin: 0; font-family: var(--font-b); font-size: 18px; }
+.frecuencia .punto { width: 16px; height: 16px; border-radius: 50%; flex: none; }
+.estante { position: relative; border-radius: 4px; padding: 4px; display: flex; flex-direction: column; gap: 4px; font-family: var(--font-b); }
+.estante .rotulo { position: absolute; top: -14px; right: -14px; min-width: 68px; padding: 4px 10px; text-align: center; font-size: 22px; line-height: 1.2; }
+.nivel { background: var(--blanco); min-height: 86px; display: flex; flex-direction: column; }
+.nivel .nombre { padding: 6px 8px 0; font-size: 13px; }
+.nivel .productos { flex: 1; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; align-items: center; }
+.nivel .productos span { padding: 8px 6px; text-align: center; font-size: 17px; line-height: 1.2; border-left: 2px solid currentColor; min-width: 0; overflow-wrap: anywhere; }
+.nivel .productos span:first-child { border-left: 0; }
+.detalle .nota-ejemplo { margin: 0; font-size: 13px; color: #5b6b6e; }
+@media (max-width: 560px) {
+  .nivel .productos { grid-auto-flow: row; grid-auto-columns: auto; }
+  .nivel .productos span { border-left: 0; border-top: 1px dashed currentColor; }
+  .nivel .productos span:first-child { border-top: 0; }
+  .estante .rotulo { right: -8px; font-size: 18px; }
+}
+
+/* ---------- Contacto ---------- */
+.contacto { position: relative; overflow: hidden; background: #0e1214 url("img/contacto-fondo.webp") center / cover no-repeat; padding-block: 273px 273px; }
+.panel { position: relative; overflow: hidden; max-width: 1084px; margin-inline: auto; background: #050607 url("img/contacto-panel.webp") 24% 46% / 160% auto no-repeat; color: var(--texto-claro); font-family: var(--font-c); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 475px); grid-template-areas: "titulo datos" "redes datos"; column-gap: 20px; padding: 18px 0 30px 26px; min-height: 576px; }
+.panel .marca { position: absolute; left: 59px; top: 0; bottom: 0; width: 719px; overflow: hidden; opacity: .24; pointer-events: none; }
+.panel .marca img { position: absolute; left: -781px; top: -444px; width: 2414px; max-width: none; transform: rotate(-13.9deg); }
+.panel h2 { grid-area: titulo; position: relative; margin: 0; font-family: var(--font-a); font-weight: 700; text-transform: uppercase; font-size: clamp(32px, 4.15vw, 56px); line-height: 1.39; }
+.datos { grid-area: datos; position: relative; align-self: start; margin-top: 108px; }
+.datos .grupo + .grupo { margin-top: 44px; }
+.datos h3 { margin: 0; padding: 0 0 12px; font-weight: 400; font-size: 20px; line-height: 1.2; border-bottom: 1px solid rgba(255,255,255,.85); }
+.datos .fila { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 22px 90px 18px 8px; border-bottom: 1px solid rgba(255,255,255,.85); font-size: 20px; line-height: 1.2; }
+.datos .fila span { min-width: 0; overflow-wrap: anywhere; user-select: all; }
+.datos .registro { margin: 12px 0 0; padding-right: 90px; text-align: center; font-size: 12px; line-height: 1.17; }
+.redes { grid-area: redes; position: relative; align-self: end; list-style: none; margin: 0; padding: 0 0 0 18px; display: flex; flex-wrap: wrap; gap: 14px 48px; font-size: 20px; }
+.redes li { display: flex; align-items: center; gap: 12px; }
+.redes svg { width: 30px; height: 30px; fill: var(--texto-claro); flex: none; }
+
+/* ---------- Pie ---------- */
+.pie { background: var(--teal); height: var(--nav-h); }
+.pie .wrap { height: 100%; display: flex; align-items: center; position: relative; }
+.pie img { position: absolute; left: max(14px, env(safe-area-inset-left, 0px)); top: 9px; width: 28px; }
+.pie ul { list-style: none; margin: 0 auto; padding: 0; display: flex; }
+.pie li { width: clamp(84px, 13.25vw, 179px); text-align: center; }
+.pie a { text-decoration: none; text-transform: uppercase; color: var(--texto-claro); font-size: clamp(15px, 1.38vw, 18.67px); line-height: 26px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .quienes { grid-template-columns: 1fr; }
+  .quienes .texto { margin-left: 0; padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 32px; }
+  .quienes .foto { height: auto; aspect-ratio: 4 / 3; margin-inline: max(16px, env(safe-area-inset-left, 0px)); }
+  .servicios { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tarjetas { grid-template-columns: minmax(0, 400px); }
+  .hero-sistema { min-height: 0; }
+  .hero-sistema .laptop { position: relative; width: 100%; height: 280px; display: block; }
+  .hero-sistema .contenido { margin-left: 0; }
+  .contacto { padding-block: 64px; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
+  .panel { grid-template-columns: 1fr; grid-template-areas: "titulo" "datos" "redes"; padding: 24px 20px 30px; min-height: 0; background-size: cover; }
+  .panel .marca { left: 0; width: 100%; }
+  .panel .marca img { left: -560px; top: -380px; width: 1700px; }
+  .datos { margin-top: 32px; }
+  .datos .fila, .datos .registro { padding-right: 8px; }
+  .redes { margin-top: 40px; padding-left: 0; gap: 14px 28px; }
+}
+@media (max-width: 560px) {
+  .servicios { grid-template-columns: 1fr; }
+  .infra { padding-block: 56px 72px; }
+  .infra h2 { margin-bottom: 32px; }
+  .video-logo { min-height: 360px; }
+  .hero-inicio .circulo { width: 62%; top: 9%; }
+  .hero-inicio .logo { width: 74%; top: 14%; }
+  .cierre .circulo { width: 72%; top: 14%; }
+  .cierre .logo { width: 96%; top: 20%; }
+  .tarjeta h3 { font-size: 24px; }
+  .boton { height: 68px; font-size: 20px; }
+  .nav-logo, .pie img { display: none; }
+  .nav li, .pie li { width: auto; padding-inline: 12px; }
+  .hero-inicio { min-height: 470px; }
+  .hero-inicio .circulo { top: 5%; } .hero-inicio .logo { top: 9%; width: 70%; }
+}
+</style>
+</head>
+<body>
+<header class="nav" id="arriba">
+  <div class="wrap">
+    <img class="nav-logo" src="img/logo-icono.png" alt="SIDIGAP">
+    <nav aria-label="Secciones">
+      <ul>
+        <li><a href="#inicio" class="activo">Inicio</a></li>
+        <li><a href="#sistema">Sistema</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- =================== INICIO =================== -->
+  <section id="inicio" aria-label="Inicio">
+    <div class="video-logo hero-inicio">
+      <video autoplay muted loop playsinline poster="img/video-inicio.webp" aria-hidden="true">
+        <source src="https://sidigap.my.canva.site/_assets/video/ba8e113ec47b95e8d392e77bdb0e706b.mp4" type="video/mp4">
+      </video>
+      <div class="circulo"></div>
+      <img class="logo" src="img/logo.png" alt="SIDIGAP, Sistema Digital Integral de Gestión de Activos y Productos">
+      <p class="lema">Transformamos la complejidad logística en eficiencia digital. Bienvenido a SIDIGAP, el ecosistema inteligente diseñado para modernizar y rentabilizar las bodegas de las Pequeñas y Medianas Empresas.</p>
+    </div>
+
+    <div class="quienes">
+      <div class="texto">
+        <h2>Quiénes somos</h2>
+        <p>Somos un equipo de ingenieros en telecomunicaciones y servicios digitales nacidos en Valdivia, comprometidos con la modernización de la industria logística. SIDIGAP (Sistema Digital Integral de Gestión de Activos y Productos) nace tras identificar los "dolores" reales de las PyMEs: el desorden físico, las millonarias pérdidas por mermas y la absoluta dependencia de la memoria de los trabajadores.</p>
+        <p>No somos solo un software; somos tu socio tecnológico. Integramos inteligencia artificial, visión computacional e infraestructura de red de alto rendimiento para entregar una solución integral que estandariza tus procesos, protege tus activos y maximiza tu rentabilidad.</p>
+      </div>
+      <div class="foto" role="img" aria-label="Bodega con estanterías y grúa horquilla"></div>
+    </div>
+
+    <div class="infra">
+      <div class="wrap">
+        <h2>Infraestructura e Intalación en Terreno</h2>
+        <p class="intro">Nos hacemos cargo del proceso completo. Nuestro equipo técnico especializado se despliega en tu empresa para realizar el tendido de cableado estructurado, la configuración de redes VLAN (garantizando latencia cero), y el montaje de switches, routers, cámaras IP y sensores. Te entregamos un sistema operativo, configurado y listo para usar desde el primer minuto.</p>
+        <ul class="servicios">
+          <li>
+            <img src="img/cableado.webp" alt="Cableado estructurado en rack" loading="lazy">
+            <h3>CABLEADO</h3>
+            <p>Realizamos el tendido de cableado estructurado de alta categoría en tu bodega para garantizar una conexión estable, segura y sin latencia.</p>
+          </li>
+          <li>
+            <img src="img/equipos-red.webp" alt="Switches y equipos de red" loading="lazy">
+            <h3>EQUIPOS DE RED</h3>
+            <p>Instalamos y configuramos switches PoE y routers VPN para asegurar un flujo de datos rápido e ininterrumpido en todas tus operaciones.</p>
+          </li>
+          <li>
+            <img src="img/camaras-ia.jpg" alt="Cámara de seguridad" loading="lazy">
+            <h3>CÁMARAS IA</h3>
+            <p>Desplegamos cámaras con visión computacional estratégica para monitorear estantes, validando el movimiento de productos y previniendo mermas de forma automática.</p>
+          </li>
+          <li>
+            <img src="img/dispositivos.jpg" alt="Tablet operativa" loading="lazy">
+            <h3>DISPOSITIVOS</h3>
+            <p>Entregamos tablets operativas con mapas interactivos que guían a tu personal paso a paso, optimizando drásticamente las rutas de picking.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="planes">
+      <div class="wrap">
+        <h2>Nuestro Producto y Planes de Suscripción</h2>
+        <p class="intro">No confiamos a ciegas en el ingreso manual. Integramos un circuito de cámaras IP respaldadas por modelos de Inteligencia Artificial que actúan como validadores visuales del movimiento de tu mercadería.</p>
+        <ul class="tarjetas">
+          <li class="tarjeta"><div class="tarjeta-in">
+            <h3>Plan Inicial</h3>
+            <p class="para">Ideal para locales comerciales con bodegas de bajo volumen.</p>
+            <hr>
+            <ul>
+              <li>Software ERP (Estructura de 3 niveles)</li>
+              <li>Control FEFO y alertas de caducidad</li>
+              <li>Gestión básica de inventario</li>
+              <li>Soporte técnico vía ticket (SLA 24 hrs)</li>
+            </ul>
+            <hr>
+            <p class="precio">$75.000 / mes</p>
+          </div></li>
+          <li class="tarjeta"><div class="tarjeta-in">
+            <h3>Plan Pro</h3>
+            <p class="para">Ideal para PyMEs en expansión que requieren trazabilidad total.</p>
+            <hr>
+            <ul>
+              <li>Todo lo del Plan Inicial</li>
+              <li>Ecosistema de Visión Computacional (IA)</li>
+              <li>Tablets con Mapas Interactivos</li>
+              <li>Soporte prioritario (SLA 4 hrs)</li>
+            </ul>
+            <hr>
+            <p class="precio">$150.000 / mes</p>
+          </div></li>
+          <li class="tarjeta"><div class="tarjeta-in">
+            <h3>Plan Corporativo</h3>
+            <p class="para">Diseñado para cadenas, supermercados o centros de distribución.</p>
+            <hr>
+            <ul>
+              <li>Todo lo del Plan Pro</li>
+              <li>Gestión de múltiples sucursales</li>
+              <li>Integración API con sistemas contables</li>
+              <li>Ejecutivo de cuenta dedicado</li>
+            </ul>
+            <hr>
+            <p class="precio cotizar">Cotizar a medida</p>
+          </div></li>
+        </ul>
+        <p class="nota">(Nota: Todos los planes requieren una evaluación técnica previa para determinar el costo del "Setup" de instalación de hardware y red).</p>
+        <a class="boton" href="#contacto">Cotiza aquí</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SISTEMA =================== -->
+  <section id="sistema" aria-label="Sistema">
+    <div class="hero-sistema">
+      <div class="fondo"></div>
+      <div class="sombra"></div>
+      <div class="laptop" role="img" aria-label="Persona trabajando en un notebook"></div>
+      <div class="contenido">
+        <h2 class="titulo-sistema"><img src="img/logo-icono.png" alt="S"><span>ISTEMA</span></h2>
+        <p class="bajada">Tecnología de punta al servicio de tu bodega.</p>
+        <p class="desc">SIDIGAP abandona los procesos manuales y las listas de papel para introducir a tu personal en un entorno de trabajo guiado, intuitivo y validado por Inteligencia Artificial.</p>
+      </div>
+    </div>
+
+    <div class="mapas">
+      <div class="wrap">
+        <h2>Módulo de Mapas Interactivos y Optimización (Heatmapping)</h2>
+        <p>El conocimiento de tu bodega ya no dependerá de la memoria de un solo trabajador. Hemos digitalizado el espacio físico mediante tablets operativas que guían al personal paso a paso.</p>
+        <p>Imagina que un nuevo operario necesita preparar un pedido que incluye un taladro específico y una caja de tornillos. En lugar de buscar pasillo por pasillo, la tablet despliega un mapa 2D del recinto. Una ruta visual le indica caminar hacia el Pasillo B,  3B, Nivel 2.</p>
+
+        <p class="desliza">Desliza para ver el mapa completo &rarr;</p>
+        <div class="diagrama">
+          <svg viewBox="40 1180 1270 485" role="img" aria-label="Mapa 2D de la bodega con pasillos A, B, C y D, ubicaciones coloreadas según su frecuencia de salida">
+            <defs>
+              <linearGradient id="gv" x1="0" y1="1199" x2="0" y2="1647" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#00bf63"/><stop offset=".2" stop-color="#7ed957"/><stop offset=".35" stop-color="#ffde59"/>
+                <stop offset=".5" stop-color="#ffbd59"/><stop offset=".65" stop-color="#ff914d"/><stop offset=".8" stop-color="#ff751f"/><stop offset="1" stop-color="#ff3131"/>
+              </linearGradient>
+            </defs>
+            <rect x="40" y="1180" width="1270" height="485" fill="#ffffff"/>
+            <!-- Leyenda vertical -->
+            <line x1="58" y1="1200" x2="58" y2="1646" stroke="url(#gv)" stroke-width="4"/>
+            <polyline points="52,1208 58,1199 64,1208" fill="none" stroke="#00bf63" stroke-width="4" stroke-linejoin="round"/>
+            <polyline points="52,1638 58,1647 64,1638" fill="none" stroke="#ff3131" stroke-width="4" stroke-linejoin="round"/>
+            <g text-anchor="middle" dominant-baseline="central">
+              <text x="138" y="1227" font-size="18.67" fill="#00bf63">MENOR SALIDA</text>
+              <text x="124" y="1244" font-size="12" fill="#00bf63">2 a 3 veces semanal</text>
+              <text x="117" y="1422" font-size="18.67" fill="#ffbd59">ESTÁNDAR</text>
+              <text x="107" y="1438" font-size="12" fill="#ffbd59">3 a 4 semanal</text>
+              <text x="139" y="1617" font-size="17.5" fill="#ff3131">MAYOR SALIDA</text>
+              <text x="106" y="1632" font-size="12" fill="#ff3131">Todos los días</text>
+            </g>
+            <!-- Marco de la bodega -->
+            <rect x="240" y="1189" width="1053" height="468" fill="none" stroke="#17a488" stroke-width="8"/>
+            <!-- Pasillos -->
+            <line x1="357" y1="1283" x2="1267" y2="1283" stroke="#00bf63" stroke-width="11"/>
+            <line x1="357" y1="1516" x2="1218" y2="1516" stroke="#ffde59" stroke-width="11"/>
+            <line x1="357" y1="1230" x2="357" y2="1627" stroke="#5170ff" stroke-width="11"/>
+            <line x1="1218" y1="1283" x2="1218" y2="1574" stroke="#ff914d" stroke-width="11"/>
+            <polyline points="1202,1555 1218,1577 1235,1555" fill="none" stroke="#ff914d" stroke-width="11" stroke-linejoin="round"/>
+            <!-- Ubicaciones -->
+            <g>
+              <rect x="416" y="1194" width="137" height="49" fill="#00bf63"/><rect x="564" y="1194" width="137" height="49" fill="#00bf63"/>
+              <rect x="709" y="1194" width="137" height="49" fill="#00bf63"/><rect x="854" y="1194" width="137" height="49" fill="#7ed957"/>
+              <rect x="1002" y="1194" width="137" height="49" fill="#7ed957"/><rect x="1150" y="1194" width="137" height="49" fill="#ff914d"/>
+              <rect x="416" y="1322" width="137" height="49" fill="#7ed957"/><rect x="564" y="1322" width="137" height="49" fill="#ffde59"/>
+              <rect x="854" y="1322" width="137" height="49" fill="#ff914d"/><rect x="1002" y="1322" width="137" height="49" fill="#ff751f"/>
+              <rect x="416" y="1383" width="137" height="49" fill="#ffde59"/><rect x="564" y="1383" width="137" height="49" fill="#ffde59"/>
+              <rect x="854" y="1383" width="137" height="49" fill="#ff751f"/><rect x="1002" y="1383" width="137" height="49" fill="#ff3131"/>
+              <rect x="416" y="1601" width="137" height="49" fill="#ffde59"/><rect x="564" y="1601" width="137" height="49" fill="#ff751f"/>
+              <rect x="854" y="1601" width="137" height="49" fill="#ff3131"/><rect x="1002" y="1601" width="137" height="49" fill="#ff3131"/>
+              <rect x="249" y="1194" width="49" height="137" fill="#00bf63"/><rect x="249" y="1339" width="49" height="137" fill="#7ed957"/>
+            </g>
+            <g text-anchor="middle" dominant-baseline="central" font-size="18.67" fill="#ffffff">
+              <text x="484.5" y="1219">1B</text><text x="632.5" y="1219">2B</text><text x="777.5" y="1219">3B</text>
+              <text x="922.5" y="1219">4B</text><text x="1070.5" y="1219">5B</text><text x="1218.5" y="1219">6B</text>
+              <text x="484.5" y="1347">7B</text><text x="632.5" y="1347">8B</text><text x="922.5" y="1347">9B</text><text x="1070.5" y="1347">10B</text>
+              <text x="484.5" y="1408">1A</text><text x="632.5" y="1408">2A</text><text x="922.5" y="1408">3A</text><text x="1070.5" y="1408">4A</text>
+              <text x="484.5" y="1626">5A</text><text x="632.5" y="1626">6A</text><text x="922.5" y="1626">7A</text><text x="1070.5" y="1626">8A</text>
+              <text transform="translate(273.5 1262.5) rotate(-90)">2C</text>
+              <text transform="translate(273.5 1407.5) rotate(-90)">1C</text>
+            </g>
+            <g text-anchor="middle" dominant-baseline="central" font-size="18.67">
+              <text x="417" y="1305" fill="#00bf63">PASILLO B</text>
+              <text x="416" y="1538" fill="#ffde59">PASILLO A</text>
+              <text transform="translate(335.5 1566) rotate(-90)" fill="#5170ff">PASILLO C</text>
+              <text transform="translate(1202.5 1446) rotate(90)" fill="#ff751f">PASILLO D</text>
+            </g>
+            <rect x="242" y="1489" width="19" height="143" fill="#000000"/>
+            <text transform="translate(251.5 1560.5) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="14.67" fill="#ffffff">ZONA DESCARGA</text>
+            <rect x="1153" y="1636" width="131" height="17" fill="#000000"/>
+            <text x="1218.5" y="1645" text-anchor="middle" dominant-baseline="central" font-size="13.33" fill="#ffffff">SALA DE VENTAS</text>
+            <g class="zonas">
+              <rect class="zona" data-estante="1B" x="416" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1B"/>
+              <rect class="zona" data-estante="2B" x="564" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2B"/>
+              <rect class="zona" data-estante="3B" x="709" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 3B"/>
+              <rect class="zona" data-estante="4B" x="854" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 4B"/>
+              <rect class="zona" data-estante="5B" x="1002" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 5B"/>
+              <rect class="zona" data-estante="6B" x="1150" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 6B"/>
+              <rect class="zona" data-estante="7B" x="416" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 7B"/>
+              <rect class="zona" data-estante="8B" x="564" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 8B"/>
+              <rect class="zona" data-estante="9B" x="854" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 9B"/>
+              <rect class="zona" data-estante="10B" x="1002" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 10B"/>
+              <rect class="zona" data-estante="1A" x="416" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1A"/>
+              <rect class="zona" data-estante="2A" x="564" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2A"/>
+              <rect class="zona" data-estante="3A" x="854" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 3A"/>
+              <rect class="zona" data-estante="4A" x="1002" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 4A"/>
+              <rect class="zona" data-estante="5A" x="416" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 5A"/>
+              <rect class="zona" data-estante="6A" x="564" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 6A"/>
+              <rect class="zona" data-estante="7A" x="854" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 7A"/>
+              <rect class="zona" data-estante="8A" x="1002" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 8A"/>
+              <rect class="zona" data-estante="2C" x="249" y="1194" width="49" height="137" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2C"/>
+              <rect class="zona" data-estante="1C" x="249" y="1339" width="49" height="137" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1C"/>
+            </g>
+          </svg>
+        </div>
+
+        <p class="ayuda-mapa">Haz clic en una estantería del mapa para ver su detalle.</p>
+        <p class="heat">Heatmapping Dinámico: La plataforma analiza constantemente el historial de ventas. Si un producto comienza a venderse más rápido, el sistema te sugerirá reubicarlo cerca de la zona de despacho, acortando los tiempos de picking de tu equipo de forma automática.</p>
+
+        <p class="desliza">Desliza para ver el diagrama completo &rarr;</p>
+        <div class="diagrama">
+          <svg viewBox="60 1830 1215 272" role="img" aria-label="Estanterías por nivel: los productos de mayor salida se ubican cerca del despacho y los de menor salida más lejos">
+            <defs>
+              <linearGradient id="gh" x1="74" y1="0" x2="1257" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#ff3131"/><stop offset=".2" stop-color="#ff751f"/><stop offset=".35" stop-color="#ff914d"/>
+                <stop offset=".5" stop-color="#ffbd59"/><stop offset=".65" stop-color="#ffde59"/><stop offset=".8" stop-color="#7ed957"/><stop offset="1" stop-color="#00bf63"/>
+              </linearGradient>
+            </defs>
+            <rect x="60" y="1830" width="1215" height="272" fill="#ffffff"/>
+            <line x1="80" y1="1854" x2="1251" y2="1854" stroke="url(#gh)" stroke-width="10"/>
+            <polyline points="94,1844 79,1854 94,1864" fill="none" stroke="#ff3131" stroke-width="10" stroke-linejoin="round"/>
+            <polyline points="1237,1844 1252,1854 1237,1864" fill="none" stroke="#00bf63" stroke-width="10" stroke-linejoin="round"/>
+            <g text-anchor="middle" dominant-baseline="central">
+              <text x="189" y="1892" font-size="24" fill="#ff3131">MAYOR SALIDA</text>
+              <text x="183" y="1917" font-size="16" fill="#ff3131">Todos los días</text>
+              <text x="675.5" y="1892" font-size="24" fill="#ffbd59">ESTÁNDAR</text>
+              <text x="675.5" y="1915" font-size="16" fill="#ffbd59">3 a 4 semanal</text>
+              <text x="1139" y="1892" font-size="24" fill="#00bf63">MENOR SALIDA</text>
+              <text x="1138.5" y="1917" font-size="16" fill="#00bf63">2 a 3 veces semanal</text>
+            </g>
+            <!-- Estante rojo 8A -->
+            <rect x="330" y="1878" width="214" height="216" fill="#ff3131"/>
+            <rect x="334" y="1882" width="206" height="64" fill="#ffffff"/>
+            <line x1="401" y1="1922" x2="401" y2="1946" stroke="#ff3131" stroke-width="2"/>
+            <line x1="471" y1="1922" x2="471" y2="1946" stroke="#ff3131" stroke-width="2"/>
+            <line x1="334" y1="1922" x2="540" y2="1922" stroke="#ff3131" stroke-width="2"/>
+            <rect x="334" y="1950" width="206" height="68" fill="#ffffff"/>
+            <rect x="334" y="2022" width="206" height="68" fill="#ffffff"/>
+            <rect x="516" y="1878" width="60" height="27" fill="#ff3131"/>
+            <g dominant-baseline="central" fill="#ff3131">
+              <text x="339" y="1891" font-size="12">Nivel 3</text>
+              <text x="339" y="1958" font-size="12">Nivel 2</text>
+              <text x="338" y="2031" font-size="12">Nivel 1</text>
+              <g text-anchor="middle">
+                <text x="368.5" y="1935" font-size="12">Clavos 3"</text>
+                <text x="437" y="1936" font-size="12">Clavos 4"</text>
+                <text x="504.5" y="1936" font-size="12">Tornillos</text>
+                <text x="437" y="1981" font-size="14.67">Discos de corte</text>
+                <text x="437" y="2060" font-size="14.67">Terciado Estructural</text>
+              </g>
+            </g>
+            <text x="546" y="1892" text-anchor="middle" dominant-baseline="central" font-size="18.67" fill="#ffffff">8A</text>
+            <polyline points="176,1944 176,2001 294,2001" fill="none" stroke="#ff3131" stroke-width="6"/>
+            <polyline points="284,1992 296,2001 284,2010" fill="none" stroke="#ff3131" stroke-width="6" stroke-linejoin="round"/>
+            <!-- Estante verde 2B -->
+            <rect x="766" y="1876" width="214" height="216" fill="#00bf63"/>
+            <rect x="770" y="1880" width="206" height="64" fill="#ffffff"/>
+            <rect x="770" y="1948" width="206" height="68" fill="#ffffff"/>
+            <rect x="770" y="2020" width="206" height="68" fill="#ffffff"/>
+            <rect x="953" y="1876" width="60" height="27" fill="#00bf63"/>
+            <g dominant-baseline="central" fill="#00bf63">
+              <text x="774" y="1889" font-size="12">Nivel 3</text>
+              <text x="774" y="1956" font-size="12">Nivel 2</text>
+              <text x="773" y="2029" font-size="12">Nivel 1</text>
+              <g text-anchor="middle" font-size="14.67">
+                <text x="873" y="1915">Luces Led Interior</text>
+                <text x="874" y="1981">Discos de corte</text>
+                <text x="874" y="2058">Planchas Fibrocemento</text>
+              </g>
+            </g>
+            <text x="983" y="1890" text-anchor="middle" dominant-baseline="central" font-size="18.67" fill="#ffffff">2B</text>
+            <polyline points="1153,1936 1153,1992 1033,1992" fill="none" stroke="#00bf63" stroke-width="6"/>
+            <polyline points="1042,1983 1030,1992 1042,2001" fill="none" stroke="#00bf63" stroke-width="6" stroke-linejoin="round"/>
+            <g class="zonas">
+              <rect class="zona" data-estante="8A" x="330" y="1878" width="246" height="216" tabindex="0" role="button" aria-label="Ver detalle de la estantería 8A"/>
+              <rect class="zona" data-estante="2B" x="766" y="1876" width="247" height="216" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2B"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="vision">
+      <div class="wrap">
+        <h2>Módulo de Visión Computacional</h2>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =================== CONTACTO =================== -->
+  <section id="contacto" aria-label="Contacto">
+    <div class="video-logo cierre">
+      <video autoplay muted loop playsinline poster="img/video-cierre.webp" aria-hidden="true">
+        <source src="https://sidigap.my.canva.site/_assets/video/6bf95fce735a92c1150624862044ecca.mp4" type="video/mp4">
+      </video>
+      <div class="circulo"></div>
+      <img class="logo" src="img/logo-grande.webp" alt="SIDIGAP">
+    </div>
+    <div class="contacto">
+    <div class="panel">
+      <div class="marca" aria-hidden="true"><img src="img/logo-grande.webp" alt=""></div>
+      <h2>Informacion de<br>contacto</h2>
+      <div class="datos">
+        <div class="grupo">
+          <h3>Cotizaciones</h3>
+          <p class="fila"><span>9 8624 9120</span><span>cotizaciones@sidigap.cl</span></p>
+        </div>
+        <div class="grupo">
+          <h3>Soporte 24/7</h3>
+          <p class="fila"><span>9 8624 9120</span><span>soporte@sidigap.cl</span></p>
+          <p class="registro">sidigap marca registrada 2026</p>
+        </div>
+      </div>
+      <ul class="redes">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg><span>@sidigap_cl</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 24V13.1h3.6l.6-4.2h-4.2V6.2c0-1.2.4-2 2.1-2h2.2V.4C18.4.3 17.1.2 15.6.2c-3.2 0-5.4 1.9-5.4 5.5v3.2H6.6v4.2h3.6V24h4.3z"/></svg><span>sidigapcl</span></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.6 4.6c-.9.4-1.8.6-2.8.8 1-.6 1.8-1.6 2.1-2.7-.9.6-2 1-3.1 1.2a4.9 4.9 0 0 0-8.4 4.5C7.4 8.1 3.8 6.1 1.4 3.2a4.9 4.9 0 0 0 1.5 6.6c-.8 0-1.6-.3-2.2-.6 0 2.4 1.7 4.4 3.9 4.8-.7.2-1.5.2-2.2.1.6 2 2.4 3.4 4.6 3.4A9.9 9.9 0 0 1 0 19.5 14 14 0 0 0 7.5 21.7c9.1 0 14-7.5 14-14v-.6c1-.7 1.8-1.6 2.5-2.5z"/></svg><span>@sidigap_cl</span></li>
+      </ul>
+    </div>
+    </div>
+  </section>
+</main>
+
+<dialog class="detalle" id="detalle" aria-labelledby="detalle-titulo">
+  <div class="detalle-in">
+    <header>
+      <div>
+        <h2 id="detalle-titulo">Estantería</h2>
+        <p class="sub" id="detalle-ubicacion"></p>
+      </div>
+      <button type="button" class="cerrar" id="detalle-cerrar" aria-label="Cerrar">&times;</button>
+    </header>
+    <div class="escala">
+      <svg viewBox="0 0 600 100" role="img" aria-label="Escala de frecuencia de salida, de mayor a menor">
+        <defs>
+          <linearGradient id="gd" x1="14" y1="0" x2="586" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ff3131"/><stop offset=".2" stop-color="#ff751f"/><stop offset=".35" stop-color="#ff914d"/>
+            <stop offset=".5" stop-color="#ffbd59"/><stop offset=".65" stop-color="#ffde59"/><stop offset=".8" stop-color="#7ed957"/><stop offset="1" stop-color="#00bf63"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="100" fill="#ffffff"/>
+        <line x1="18" y1="50" x2="582" y2="50" stroke="url(#gd)" stroke-width="8"/>
+        <polyline points="30,42 16,50 30,58" fill="none" stroke="#ff3131" stroke-width="8" stroke-linejoin="round"/>
+        <polyline points="570,42 584,50 570,58" fill="none" stroke="#00bf63" stroke-width="8" stroke-linejoin="round"/>
+        <g dominant-baseline="central" font-size="20">
+          <text x="14" y="84" fill="#ff3131">MAYOR SALIDA</text>
+          <text x="300" y="84" text-anchor="middle" fill="#ffbd59">ESTÁNDAR</text>
+          <text x="586" y="84" text-anchor="end" fill="#00bf63">MENOR SALIDA</text>
+        </g>
+        <g id="detalle-marca" transform="translate(300 0)">
+          <rect x="-32" y="1" width="64" height="27" rx="5" fill="#003a43"/>
+          <text id="detalle-marca-txt" x="0" y="15" text-anchor="middle" dominant-baseline="central" font-size="19" fill="#ffffff">3B</text>
+          <polygon points="-10,28 10,28 0,41" fill="#003a43"/>
+        </g>
+      </svg>
+    </div>
+    <p class="frecuencia"><span class="punto" id="detalle-punto"></span><span id="detalle-frecuencia"></span></p>
+    <div class="estante" id="detalle-estante"></div>
+    <p class="nota-ejemplo">Productos de ejemplo para mostrar el funcionamiento del módulo.</p>
+  </div>
+</dialog>
+
+<footer class="pie">
+  <div class="wrap">
+    <img src="img/logo-icono-blanco.png" alt="SIDIGAP">
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#sistema">Sistema</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Muestra solo la sección elegida en el menú (Inicio, Sistema o Contacto)
+  (function () {
+    var ids = ['inicio', 'sistema', 'contacto'];
+    var secciones = ids.map(function (id) { return document.getElementById(id); });
+    var enlaces = document.querySelectorAll('a[href^="#"]');
+
+    function mostrar(id, actualizarUrl) {
+      if (ids.indexOf(id) === -1) id = 'inicio';
+      secciones.forEach(function (s) { s.hidden = s.id !== id; });
+      document.querySelectorAll('.nav a').forEach(function (a) {
+        a.classList.toggle('activo', a.getAttribute('href') === '#' + id);
+      });
+      document.title = id === 'inicio' ? 'SIDIGAP' : 'SIDIGAP | ' + id.charAt(0).toUpperCase() + id.slice(1);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      if (actualizarUrl) { try { history.replaceState(null, '', '#' + id); } catch (e) {} }
+    }
+
+    enlaces.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var id = a.getAttribute('href').slice(1);
+        if (ids.indexOf(id) === -1) return;
+        e.preventDefault();
+        mostrar(id, true);
+      });
+    });
+    window.addEventListener('hashchange', function () { mostrar(location.hash.slice(1), false); });
+    try { history.scrollRestoration = 'manual'; } catch (e) {}
+    mostrar(location.hash.slice(1), false);
+    window.addEventListener('load', function () { window.scrollTo({ top: 0, behavior: 'instant' }); });
+  })();
+</script>
+<script>
+  // Detalle de cada estantería en un pop-up
+  (function () {
+    // Escala de salida: posición 0 = mayor salida (rojo), 1 = menor salida (verde)
+    var NIVELES = {
+      '#ff3131': { pos: 0.02, nombre: 'Mayor salida', frec: 'Todos los días', texto: '#ff3131', rotulo: '#ffffff' },
+      '#ff751f': { pos: 0.2,  nombre: 'Salida alta', frec: '5 a 6 veces semanal', texto: '#e8600c', rotulo: '#ffffff' },
+      '#ff914d': { pos: 0.35, nombre: 'Salida media-alta', frec: '4 a 5 veces semanal', texto: '#e2702a', rotulo: '#ffffff' },
+      '#ffde59': { pos: 0.6,  nombre: 'Estándar', frec: '3 a 4 semanal', texto: '#a8860a', rotulo: '#4a3b00' },
+      '#7ed957': { pos: 0.8,  nombre: 'Salida baja', frec: '3 veces semanal', texto: '#3e8e1e', rotulo: '#1f4a10' },
+      '#00bf63': { pos: 0.98, nombre: 'Menor salida', frec: '2 a 3 veces semanal', texto: '#00a557', rotulo: '#ffffff' }
+    };
+    // Estanterías: color (según el mapa), pasillo y productos por nivel (Nivel 3, Nivel 2, Nivel 1)
+    var ESTANTES = {
+      '1B':  { color: '#00bf63', pasillo: 'B', niveles: [['Cerraduras', 'Bisagras'], ['Candados'], ['Cajas de herramientas']] },
+      '2B':  { color: '#00bf63', pasillo: 'B', niveles: [['Luces Led Interior'], ['Discos de corte'], ['Planchas Fibrocemento']] },
+      '3B':  { color: '#00bf63', pasillo: 'B', niveles: [['Brocas', 'Puntas atornillador'], ['Taladros', 'Atornilladores'], ['Esmeriles angulares']] },
+      '4B':  { color: '#7ed957', pasillo: 'B', niveles: [['Huinchas de medir', 'Niveles'], ['Llaves combinadas'], ['Escaleras']] },
+      '5B':  { color: '#7ed957', pasillo: 'B', niveles: [['Interruptores', 'Enchufes'], ['Cable eléctrico'], ['Tubos conduit']] },
+      '6B':  { color: '#ff914d', pasillo: 'B', niveles: [['Silicona', 'Adhesivos'], ['Brochas', 'Rodillos'], ['Pintura látex']] },
+      '7B':  { color: '#7ed957', pasillo: 'B', niveles: [['Guantes', 'Lentes de seguridad'], ['Cascos'], ['Botas de seguridad']] },
+      '8B':  { color: '#ffde59', pasillo: 'B', niveles: [['Llaves de paso', 'Teflón'], ['Fitting PVC'], ['Cañerías de cobre']] },
+      '9B':  { color: '#ff914d', pasillo: 'B', niveles: [['Tarugos', 'Pernos'], ['Golillas', 'Tuercas'], ['Fierro estriado']] },
+      '10B': { color: '#ff751f', pasillo: 'B', niveles: [['Lijas', 'Masilla'], ['Pasta muro'], ['Planchas de yeso cartón']] },
+      '1A':  { color: '#ffde59', pasillo: 'A', niveles: [['Martillos', 'Alicates'], ['Serruchos'], ['Carretillas']] },
+      '2A':  { color: '#ffde59', pasillo: 'A', niveles: [['Ampolletas', 'Portalámparas'], ['Extensiones'], ['Focos LED exterior']] },
+      '3A':  { color: '#ff751f', pasillo: 'A', niveles: [['Clavos 2"', 'Clavos 2½"'], ['Grapas', 'Corchetes'], ['Rollos de alambre']] },
+      '4A':  { color: '#ff3131', pasillo: 'A', niveles: [['Tornillos volcanita', 'Tornillos madera'], ['Cinta aisladora'], ['Sacos de cemento']] },
+      '5A':  { color: '#ffde59', pasillo: 'A', niveles: [['Abrazaderas', 'Flexibles'], ['Llaves lavaplatos'], ['Estanques WC']] },
+      '6A':  { color: '#ff751f', pasillo: 'A', niveles: [['Pegamento PVC', 'Cinta teflón'], ['Codos PVC'], ['Tubos PVC 110 mm']] },
+      '7A':  { color: '#ff3131', pasillo: 'A', niveles: [['Clavos 1½"', 'Clavos 2"'], ['Tornillos autoperforantes'], ['Pino dimensionado']] },
+      '8A':  { color: '#ff3131', pasillo: 'A', niveles: [['Clavos 3"', 'Clavos 4"', 'Tornillos'], ['Discos de corte'], ['Terciado Estructural']] },
+      '1C':  { color: '#7ed957', pasillo: 'C', niveles: [['Esmaltes al agua'], ['Diluyentes'], ['Pintura en galón']] },
+      '2C':  { color: '#00bf63', pasillo: 'C', niveles: [['Rafia', 'Cordeles'], ['Mangueras'], ['Rollos de malla']] }
+    };
+
+    var dlg = document.getElementById('detalle');
+    if (!dlg) return;
+    var titulo = document.getElementById('detalle-titulo');
+    var ubic = document.getElementById('detalle-ubicacion');
+    var marca = document.getElementById('detalle-marca');
+    var marcaTxt = document.getElementById('detalle-marca-txt');
+    var punto = document.getElementById('detalle-punto');
+    var frec = document.getElementById('detalle-frecuencia');
+    var caja = document.getElementById('detalle-estante');
+    var origen = null;
+
+    function abrir(id, desde) {
+      var e = ESTANTES[id]; if (!e) return;
+      var n = NIVELES[e.color];
+      origen = desde || null;
+      titulo.textContent = 'Estantería ' + id;
+      ubic.textContent = 'Pasillo ' + e.pasillo;
+      marca.setAttribute('transform', 'translate(' + (34 + n.pos * 532).toFixed(1) + ' 0)');
+      marcaTxt.textContent = id;
+      punto.style.background = e.color;
+      frec.textContent = n.nombre + ' · ' + n.frec;
+      frec.style.color = n.texto;
+
+      caja.innerHTML = '';
+      caja.style.background = e.color;
+      var rot = document.createElement('div');
+      rot.className = 'rotulo'; rot.textContent = id;
+      rot.style.background = e.color; rot.style.color = n.rotulo;
+      caja.appendChild(rot);
+      e.niveles.forEach(function (prods, i) {
+        var nivel = document.createElement('div');
+        nivel.className = 'nivel'; nivel.style.color = n.texto;
+        var nom = document.createElement('div');
+        nom.className = 'nombre'; nom.textContent = 'Nivel ' + (3 - i);
+        var lista = document.createElement('div');
+        lista.className = 'productos';
+        prods.forEach(function (p) { var s = document.createElement('span'); s.textContent = p; lista.appendChild(s); });
+        nivel.appendChild(nom); nivel.appendChild(lista);
+        caja.appendChild(nivel);
+      });
+
+      if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); }
+      else dlg.setAttribute('open', '');
+      document.getElementById('detalle-cerrar').focus();
+    }
+
+    function cerrar() {
+      if (typeof dlg.close === 'function') dlg.close(); else dlg.removeAttribute('open');
+    }
+    dlg.addEventListener('close', function () { if (origen) { try { origen.focus(); } catch (e) {} } });
+    document.getElementById('detalle-cerrar').addEventListener('click', cerrar);
+    dlg.addEventListener('click', function (ev) { if (ev.target === dlg) cerrar(); });
+
+    document.querySelectorAll('.zona').forEach(function (z) {
+      z.addEventListener('click', function () { abrir(z.getAttribute('data-estante'), z); });
+      z.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); abrir(z.getAttribute('data-estante'), z); }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
