@@ -19,6 +19,7 @@
   color-scheme: light;
   --teal: #0a7e8f;
   --verde: #17a488;
+  --verde-logo: #3aab46;
   --petroleo: #003a43;
   --blanco: #ffffff;
   --negro: #000000;
@@ -93,15 +94,47 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .planes { background: var(--teal); color: var(--texto-claro); padding-block: 52px 64px; }
 .planes h2 { margin: 0; font-size: clamp(28px, 3.16vw, 42.67px); line-height: 1.38; font-weight: 700; padding-left: clamp(0px, 4.3vw, 58px); }
 .planes .intro { margin: 4px 0 40px; max-width: 862px; padding-left: clamp(0px, 4.1vw, 55px); text-align: justify; font-size: clamp(16px, 1.78vw, 24px); line-height: 1.375; }
-.tarjetas { display: grid; grid-template-columns: repeat(3, minmax(0, 360px)); justify-content: center; gap: clamp(16px, 3.4vw, 46px); list-style: none; margin: 0; padding: 0; }
-.tarjeta { background: var(--blanco); border-radius: 26px; padding: 9px; min-width: 0; }
-.tarjeta-in { height: 100%; border: 3px solid var(--teal); border-radius: 20px; padding: 26px 22px 24px; display: flex; flex-direction: column; color: var(--teal); font-family: var(--font-b); }
-.tarjeta h3 { margin: 0 0 30px; text-align: center; color: var(--negro); font-family: var(--font-a); font-weight: 700; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.3; text-transform: uppercase; text-wrap: balance; }
-.tarjeta .para { margin: 0 auto; max-width: 260px; text-align: center; font-size: 20px; line-height: 1.4; }
-.tarjeta hr { border: 0; border-top: 3px solid var(--teal); margin: 18px 0; }
-.tarjeta ul { margin: 0; padding: 0 0 0 26px; font-size: 20px; line-height: 1.4; letter-spacing: -.022em; flex: 1; }
-.tarjeta .precio { margin: 0; text-align: center; font-size: clamp(24px, 2.37vw, 32px); line-height: 1.38; white-space: nowrap; }
-.tarjeta .precio.cotizar { font-size: 28px; }
+/* ---------- Tabla comparativa de planes ---------- */
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.comparativa { max-width: 1120px; margin-inline: auto; background: var(--blanco); border-radius: 26px; padding: 9px; }
+.comparativa-in { border: 3px solid var(--teal); border-radius: 20px; padding: 10px clamp(8px, 2.4vw, 32px) 18px; overflow-x: auto; }
+.comparativa table { width: 100%; border-collapse: collapse; color: var(--teal); font-family: var(--font-b); }
+.comparativa thead th { width: 21%; padding: 18px 8px 16px; vertical-align: top; text-align: center; color: var(--negro); font-family: var(--font-a); font-weight: 700; font-size: clamp(18px, 1.9vw, 26px); line-height: 1.15; text-transform: uppercase; }
+.comparativa thead th .plan { display: block; font-size: .6em; letter-spacing: .12em; color: var(--teal); font-weight: 400; margin-bottom: 2px; }
+.comparativa thead th small { display: block; min-height: 3.9em; margin-top: 8px; font-family: var(--font-b); font-size: 14px; line-height: 1.3; text-transform: none; color: var(--teal); font-weight: 400; }
+.comparativa thead tr { border-bottom: 3px solid var(--teal); }
+.comparativa tbody th { text-align: left; font-weight: 400; font-size: clamp(15px, 1.4vw, 19px); line-height: 1.3; padding: 13px 12px 13px 4px; }
+.comparativa tbody th small { display: block; font-size: .78em; opacity: .75; }
+.comparativa tbody tr { border-bottom: 1px solid rgba(10, 126, 143, .22); }
+.comparativa tbody tr.corte { border-top: 3px solid var(--teal); }
+.comparativa tbody tr:hover { background: rgba(10, 126, 143, .05); }
+.comparativa td { text-align: center; vertical-align: middle; padding: 10px 6px; }
+.comparativa tr > :first-child, .comparativa tbody td:nth-child(3), .comparativa thead th:nth-child(3), .comparativa tfoot td:nth-child(3) { background: rgba(23, 164, 136, .07); }
+.comparativa tbody th { padding-left: 12px; }
+.si { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--verde-logo); }
+.si svg { width: 18px; height: 18px; fill: none; stroke: var(--blanco); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.no { display: inline-block; width: 18px; height: 2px; border-radius: 2px; background: rgba(10, 126, 143, .35); vertical-align: middle; }
+.comparativa tfoot tr { border-top: 3px solid var(--teal); }
+.comparativa tfoot td { padding: 20px 6px 8px; }
+.comparativa .monto { display: block; font-size: clamp(22px, 2.37vw, 32px); line-height: 1.2; white-space: nowrap; }
+.comparativa .monto.cotizar { font-size: clamp(18px, 1.9vw, 26px); white-space: normal; }
+.comparativa .periodo { display: block; font-size: 16px; opacity: .8; }
+@media (max-width: 620px) {
+  .comparativa { padding: 6px; border-radius: 20px; }
+  .comparativa-in { padding: 4px 4px 12px; border-radius: 15px; }
+  .comparativa thead th { width: 19%; font-size: 12px; padding: 12px 1px 10px; letter-spacing: 0; }
+  .comparativa thead th .plan { font-size: 10px; letter-spacing: .08em; }
+  .comparativa thead th small { display: none; }
+  .comparativa tbody th { font-size: 13px; padding: 10px 4px 10px 8px; }
+  .comparativa tbody th small { font-size: 11px; }
+  .comparativa td { padding: 8px 1px; }
+  .si { width: 22px; height: 22px; } .si svg { width: 13px; height: 13px; }
+  .no { width: 14px; }
+  .comparativa tfoot td { padding: 14px 1px 6px; }
+  .comparativa .monto { font-size: 12px; letter-spacing: -.02em; } .comparativa .monto.cotizar { font-size: 11px; }
+  .comparativa tfoot td + td { padding-inline: 3px; }
+  .comparativa .periodo { font-size: 11px; }
+}
 .planes .nota { margin: 30px auto 36px; max-width: 1171px; text-align: center; font-weight: 700; font-size: clamp(15px, 1.58vw, 21.33px); line-height: 1.36; }
 .boton { display: flex; align-items: center; justify-content: center; width: min(435px, 100%); height: 83px; margin-inline: auto; background: var(--verde); color: var(--texto-claro); text-decoration: none; text-transform: uppercase; font-weight: 700; font-size: 24px; border-radius: 999px; border: 3px solid var(--blanco); box-shadow: 0 6px 14px rgba(0,0,0,.25); transition: transform .15s; }
 .boton:hover { transform: translateY(-2px); }
@@ -191,7 +224,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .quienes .texto { margin-left: 0; padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 32px; }
   .quienes .foto { height: auto; aspect-ratio: 4 / 3; margin-inline: max(16px, env(safe-area-inset-left, 0px)); }
   .servicios { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .tarjetas { grid-template-columns: minmax(0, 400px); }
   .hero-sistema { min-height: 0; }
   .hero-sistema .laptop { position: relative; width: 100%; height: 280px; display: block; }
   .hero-sistema .contenido { margin-left: 0; }
@@ -212,7 +244,6 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   .hero-inicio .logo { width: 74%; top: 14%; }
   .cierre .circulo { width: 72%; top: 14%; }
   .cierre .logo { width: 96%; top: 20%; }
-  .tarjeta h3 { font-size: 24px; }
   .boton { height: 68px; font-size: 20px; }
   .nav-logo, .pie img { display: none; }
   .hero-inicio { min-height: 470px; }
@@ -288,47 +319,41 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       <div class="wrap">
         <h2>Nuestro Producto y Planes de Suscripción</h2>
         <p class="intro">No confiamos a ciegas en el ingreso manual. Integramos un circuito de cámaras IP respaldadas por modelos de Inteligencia Artificial que actúan como validadores visuales del movimiento de tu mercadería.</p>
-        <ul class="tarjetas">
-          <li class="tarjeta"><div class="tarjeta-in">
-            <h3>Plan Inicial</h3>
-            <p class="para">Ideal para locales comerciales con bodegas de bajo volumen.</p>
-            <hr>
-            <ul>
-              <li>Software ERP (Estructura de 3 niveles)</li>
-              <li>Control FEFO y alertas de caducidad</li>
-              <li>Gestión básica de inventario</li>
-              <li>Soporte técnico vía ticket (SLA 24 hrs)</li>
-            </ul>
-            <hr>
-            <p class="precio">$75.000 / mes</p>
-          </div></li>
-          <li class="tarjeta"><div class="tarjeta-in">
-            <h3>Plan Pro</h3>
-            <p class="para">Ideal para PyMEs en expansión que requieren trazabilidad total.</p>
-            <hr>
-            <ul>
-              <li>Todo lo del Plan Inicial</li>
-              <li>Ecosistema de Visión Computacional (IA)</li>
-              <li>Tablets con Mapas Interactivos</li>
-              <li>Soporte prioritario (SLA 4 hrs)</li>
-            </ul>
-            <hr>
-            <p class="precio">$150.000 / mes</p>
-          </div></li>
-          <li class="tarjeta"><div class="tarjeta-in">
-            <h3>Plan Corporativo</h3>
-            <p class="para">Diseñado para cadenas, supermercados o centros de distribución.</p>
-            <hr>
-            <ul>
-              <li>Todo lo del Plan Pro</li>
-              <li>Gestión de múltiples sucursales</li>
-              <li>Integración API con sistemas contables</li>
-              <li>Ejecutivo de cuenta dedicado</li>
-            </ul>
-            <hr>
-            <p class="precio cotizar">Cotizar a medida</p>
-          </div></li>
-        </ul>
+        <div class="comparativa">
+          <div class="comparativa-in">
+            <table>
+              <caption class="oculto">Comparación de planes de suscripción SIDIGAP</caption>
+              <thead>
+                <tr>
+                  <td></td>
+                  <th scope="col"><span class="plan">Plan</span>Inicial<small>Locales comerciales con bodegas de bajo volumen</small></th>
+                  <th scope="col"><span class="plan">Plan</span>Pro<small>PyMEs en expansión que requieren trazabilidad total</small></th>
+                  <th scope="col"><span class="plan">Plan</span>Corporativo<small>Cadenas, supermercados o centros de distribución</small></th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr><th scope="row">Software ERP<small>Estructura de 3 niveles</small></th><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr><th scope="row">Control FEFO y alertas de caducidad</th><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr><th scope="row">Gestión básica de inventario</th><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr><th scope="row">Soporte técnico vía ticket<small>SLA 24 hrs</small></th><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="no" aria-label="No incluido"></span></td><td><span class="no" aria-label="No incluido"></span></td></tr>
+              <tr class="corte"><th scope="row">Ecosistema de Visión Computacional (IA)</th><td><span class="no" aria-label="No incluido"></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr><th scope="row">Tablets con Mapas Interactivos</th><td><span class="no" aria-label="No incluido"></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr><th scope="row">Soporte prioritario<small>SLA 4 hrs</small></th><td><span class="no" aria-label="No incluido"></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr class="corte"><th scope="row">Gestión de múltiples sucursales</th><td><span class="no" aria-label="No incluido"></span></td><td><span class="no" aria-label="No incluido"></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr><th scope="row">Integración API con sistemas contables</th><td><span class="no" aria-label="No incluido"></span></td><td><span class="no" aria-label="No incluido"></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              <tr><th scope="row">Ejecutivo de cuenta dedicado</th><td><span class="no" aria-label="No incluido"></span></td><td><span class="no" aria-label="No incluido"></span></td><td><span class="si" aria-label="Incluido"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span></td></tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td><span class="monto">$75.000</span><span class="periodo">/ mes</span></td>
+                  <td><span class="monto">$150.000</span><span class="periodo">/ mes</span></td>
+                  <td><span class="monto cotizar">Cotizar a medida</span></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
         <p class="nota">(Nota: Todos los planes requieren una evaluación técnica previa para determinar el costo del "Setup" de instalación de hardware y red).</p>
         <a class="boton" href="#contacto">Cotiza aquí</a>
       </div>
