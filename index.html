@@ -234,6 +234,72 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .plano-det .rotulo-caja { fill: #ffffff; stroke-width: 2.5; }
 .plano-det .rotulo-txt { font-size: 16px; fill: var(--petroleo); text-anchor: middle; dominant-baseline: central; }
 
+/* ---------- Ejemplo: ingreso automático con visión computacional ---------- */
+.ingreso { padding-block: 48px 8px; color: var(--teal); }
+.ingreso h2 { margin: 0 0 14px; font-weight: 700; font-size: clamp(22px, 1.98vw, 26.67px); line-height: 1.3; }
+.ingreso-intro { margin: 0 0 22px; max-width: 1220px; font-weight: 700; font-size: clamp(17px, 1.78vw, 24px); line-height: 1.45; text-align: justify; hyphens: auto; }
+.ingreso-chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 16px; }
+.ingreso-chips-tit { font-family: var(--font-a); font-size: 15px; margin-right: 4px; }
+.ing-chip { border: 2px solid var(--teal); background: var(--blanco); color: var(--teal); font-family: var(--font-a); font-size: 15px; padding: 6px 16px; border-radius: 999px; cursor: pointer; transition: background-color .15s, color .15s; }
+.ing-chip:hover { background: rgba(10,126,143,.08); }
+.ing-chip.activa { background: var(--teal); color: var(--blanco); }
+.ing-chip:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+.ingreso-demo { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 0; border: 2.5px solid var(--teal); border-radius: 18px; overflow: hidden; background: var(--blanco); }
+.ingreso-escena { min-width: 0; border-right: 1px solid rgba(10,126,143,.25); }
+.ing-svg { display: block; width: 100%; height: auto; font-family: var(--font-b); }
+.ing-estructura { fill: none; stroke: var(--teal); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.ing-camara { fill: var(--petroleo); }
+.ing-lente { fill: var(--teal); stroke: var(--petroleo); stroke-width: 3; }
+.ing-led { fill: #3aab46; }
+.ing-campo { fill: #3aab46; fill-opacity: .07; stroke: #3aab46; stroke-opacity: .5; stroke-width: 1.5; stroke-dasharray: 5 6; }
+.ing-mesa { fill: var(--teal); }
+.ing-rodillos circle { fill: #ffffff; stroke: var(--teal); stroke-width: 2.5; }
+.ing-piso { stroke: var(--teal); stroke-opacity: .3; stroke-width: 2; }
+.ing-etq-mesa { font-size: 11px; letter-spacing: .18em; fill: var(--teal); opacity: .6; text-anchor: middle; }
+.ing-prod { opacity: 0; transform: translateX(-60px); transition: opacity .35s, transform .5s cubic-bezier(.2,.8,.2,1); }
+.ing-prod.visible { opacity: 1; transform: none; }
+.ing-marco path { fill: none; stroke: #3aab46; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.ing-marco { opacity: 0; transition: opacity .25s; }
+.ing-linea { fill: #3aab46; opacity: 0; }
+.ing-tag { opacity: 0; transition: opacity .3s; }
+.ing-tag rect { fill: var(--petroleo); }
+.ing-tag text { fill: #ffffff; font-size: 14px; text-anchor: middle; }
+.ingreso-demo.escaneando .ing-marco { opacity: 1; }
+.ingreso-demo.escaneando .ing-linea { opacity: .85; animation: barrido 1.1s ease-in-out infinite alternate; }
+.ingreso-demo.listo .ing-marco { opacity: 1; }
+.ingreso-demo.listo .ing-tag { opacity: 1; }
+.ingreso-demo.escaneando .ing-led { animation: parpadeo .5s steps(2) infinite; }
+@keyframes barrido { from { transform: translateY(0); } to { transform: translateY(133px); } }
+@keyframes parpadeo { 50% { opacity: .2; } }
+.ingreso-resultado { min-width: 0; padding: 22px clamp(16px, 2.4vw, 30px); display: flex; flex-direction: column; gap: 14px; background: rgba(23,164,136,.05); }
+.ing-estado { margin: 0; display: flex; align-items: center; gap: 10px; font-family: var(--font-a); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+.ing-dot { width: 10px; height: 10px; border-radius: 50%; background: #ffbd59; flex: none; }
+.ingreso-demo.listo .ing-dot { background: #3aab46; }
+.ingreso-demo.escaneando .ing-dot { animation: parpadeo .6s steps(2) infinite; }
+.ing-datos { margin: 0; display: flex; flex-direction: column; }
+.ing-datos div { display: grid; grid-template-columns: 178px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid rgba(10,126,143,.2); }
+.ing-datos dt { font-family: var(--font-a); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; opacity: .8; }
+.ing-datos dd { margin: 0; font-family: var(--font-b); font-size: clamp(16px, 1.4vw, 19px); color: var(--petroleo); display: flex; align-items: center; gap: 10px; overflow-wrap: anywhere; }
+.ing-barra { position: relative; flex: 0 0 110px; height: 6px; border-radius: 3px; background: rgba(10,126,143,.15); overflow: hidden; }
+.ing-barra i { position: absolute; inset: 0 auto 0 0; width: 0; background: #3aab46; border-radius: 3px; transition: width .6s ease-out; }
+.ing-stock { margin: 4px 0 0; display: flex; align-items: center; gap: 10px; font-family: var(--font-b); font-size: 17px; color: var(--petroleo); opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+.ingreso-demo.listo .ing-stock { opacity: 1; transform: none; }
+.ing-check { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #3aab46; flex: none; }
+.ing-check svg { width: 16px; height: 16px; fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.ing-sinbarras { margin: 0; align-self: flex-start; font-family: var(--font-a); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--petroleo); border: 2px solid #3aab46; border-radius: 999px; padding: 4px 12px; }
+.ingreso-pasos { list-style: none; counter-reset: paso; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.ingreso-pasos li { counter-increment: paso; display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 12px; row-gap: 2px; }
+.ingreso-pasos li::before { content: counter(paso); grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--teal); display: grid; place-items: center; font-family: var(--font-b); font-size: 17px; }
+.ingreso-pasos b { font-size: 18px; }
+.ingreso-pasos span { font-family: var(--font-b); font-size: 15px; line-height: 1.4; color: var(--petroleo); }
+@media (prefers-reduced-motion: reduce) { .ing-prod { transition: none; transform: none; } .ingreso-demo.escaneando .ing-linea, .ingreso-demo.escaneando .ing-led, .ingreso-demo.escaneando .ing-dot { animation: none; } }
+@media (max-width: 860px) {
+  .ingreso-demo { grid-template-columns: 1fr; }
+  .ingreso-escena { border-right: 0; border-bottom: 1px solid rgba(10,126,143,.25); }
+  .ingreso-pasos { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) { .ing-datos div { grid-template-columns: 1fr; gap: 2px; } }
+
 /* ---------- Estanterías clicables y pop-up de detalle ---------- */
 .zona { fill: transparent; stroke: transparent; stroke-width: 4; cursor: pointer; transition: fill .15s, stroke .15s; }
 .zona:hover { fill: rgba(0,0,0,.12); stroke: #003a43; }
@@ -552,6 +618,104 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <img src="img/vision-camara.webp" width="683" height="595" loading="lazy" alt="Cámara IP de vigilancia sobre los pasillos de una bodega">
         <img src="img/vision-sensores.webp" width="738" height="595" loading="lazy" alt="Operario en grúa horquilla junto a estanterías, con íconos de validación y sensor de temperatura">
         <img class="vision-logo" src="img/logo-s-blanco.png" width="201" height="268" alt="" aria-hidden="true">
+      </div>
+    </div>
+
+    <div class="ingreso" id="ingreso">
+      <div class="wrap">
+        <h2>Así funciona: ingreso automático de mercadería</h2>
+        <p class="ingreso-intro">Instalamos un módulo de ingreso fijo en tu negocio. Cada producto que llega pasa bajo la cámara, que lo reconoce y lo suma al inventario al instante, sin digitar nada. Identifica la caja, la forma, el color o el texto del empaque, incluso en productos sin código de barras como frutas y verduras.</p>
+
+        <div class="ingreso-chips" role="group" aria-label="Elige un producto para escanear">
+          <span class="ingreso-chips-tit">Prueba con:</span>
+          <button type="button" class="ing-chip activa" data-prod="caja" aria-pressed="true">Caja de tornillos</button>
+          <button type="button" class="ing-chip" data-prod="taladro" aria-pressed="false">Taladro</button>
+          <button type="button" class="ing-chip" data-prod="tomates" aria-pressed="false">Tomates</button>
+          <button type="button" class="ing-chip" data-prod="saco" aria-pressed="false">Saco de cemento</button>
+        </div>
+
+        <div class="ingreso-demo">
+          <div class="ingreso-escena">
+            <svg class="ing-svg" viewBox="0 0 520 380" role="img" aria-label="Módulo de ingreso: una cámara sobre una mesa escanea el producto recién llegado">
+              <defs>
+                <pattern id="grilla3" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#0a7e8f" stroke-opacity=".07" stroke-width="1"/></pattern>
+                <clipPath id="zona-escaneo"><rect x="150" y="150" width="220" height="136"/></clipPath>
+              </defs>
+              <rect width="520" height="380" fill="#ffffff"/>
+              <rect width="520" height="380" fill="url(#grilla3)"/>
+              <!-- estructura del módulo -->
+              <path class="ing-estructura" d="M 70 330 V 46 H 236"/>
+              <rect class="ing-camara" x="232" y="34" width="56" height="34" rx="9"/>
+              <circle class="ing-lente" cx="260" cy="72" r="11"/>
+              <circle cx="260" cy="72" r="4" fill="#ffffff"/>
+              <circle class="ing-led" cx="280" cy="44" r="3.5"/>
+              <path class="ing-campo" d="M 249 80 L 150 286 H 370 L 271 80 Z"/>
+              <!-- mesa -->
+              <rect class="ing-mesa" x="110" y="286" width="300" height="14" rx="5"/>
+              <g class="ing-rodillos"><circle cx="140" cy="314" r="7"/><circle cx="200" cy="314" r="7"/><circle cx="260" cy="314" r="7"/><circle cx="320" cy="314" r="7"/><circle cx="380" cy="314" r="7"/></g>
+              <line class="ing-piso" x1="40" y1="334" x2="480" y2="334"/>
+              <text class="ing-etq-mesa" x="260" y="358">MÓDULO DE INGRESO</text>
+
+              <!-- productos -->
+              <g class="ing-prod" data-prod="caja">
+                <rect x="198" y="200" width="124" height="84" rx="4" fill="#e9c999" stroke="#003a43" stroke-width="2"/>
+                <path d="M198 222 H322" stroke="#003a43" stroke-width="1.5" stroke-opacity=".35"/>
+                <rect x="252" y="200" width="16" height="84" fill="#d7b07a"/>
+                <rect x="210" y="236" width="34" height="34" rx="3" fill="#ffffff" stroke="#003a43" stroke-width="1.5"/>
+                <path d="M216 244h22M216 251h16M216 258h20" stroke="#003a43" stroke-width="2" stroke-linecap="round"/>
+                <g fill="#003a43"><rect x="276" y="242" width="2" height="24"/><rect x="281" y="242" width="4" height="24"/><rect x="288" y="242" width="2" height="24"/><rect x="292" y="242" width="3" height="24"/><rect x="298" y="242" width="2" height="24"/><rect x="302" y="242" width="4" height="24"/><rect x="309" y="242" width="2" height="24"/></g>
+              </g>
+              <g class="ing-prod" data-prod="taladro">
+                <path d="M196 214 H292 a14 14 0 0 1 14 14 v2 a14 14 0 0 1 -14 14 H262 l-10 36 a6 6 0 0 1 -6 4 h-22 a5 5 0 0 1 -5 -6 l9 -34 h-18 a12 12 0 0 1 -12 -12 v-6 a12 12 0 0 1 12 -12 z" fill="#3aab46" stroke="#003a43" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="306" y="220" width="20" height="18" rx="3" fill="#5b6b6e" stroke="#003a43" stroke-width="2"/>
+                <path d="M326 229 H352" stroke="#003a43" stroke-width="4" stroke-linecap="round"/>
+                <rect x="214" y="262" width="34" height="18" rx="3" fill="#003a43"/>
+                <circle cx="228" cy="229" r="5" fill="#ffffff" stroke="#003a43" stroke-width="1.5"/>
+              </g>
+              <g class="ing-prod" data-prod="tomates">
+                <path d="M190 252 H330 L320 284 H200 Z" fill="#c9a26b" stroke="#003a43" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M196 266 H324" stroke="#003a43" stroke-opacity=".35" stroke-width="1.5"/>
+                <g stroke="#003a43" stroke-width="2">
+                  <circle cx="218" cy="236" r="20" fill="#ff5a4a"/><circle cx="258" cy="230" r="22" fill="#ff6b5b"/><circle cx="299" cy="237" r="19" fill="#ff5a4a"/>
+                  <circle cx="238" cy="214" r="17" fill="#ff6b5b"/><circle cx="280" cy="213" r="17" fill="#ff5a4a"/>
+                </g>
+                <g fill="#3aab46" stroke="#003a43" stroke-width="1.2"><path d="M232 199 l6 6 l6 -6 l-6 2z"/><path d="M274 198 l6 6 l6 -6 l-6 2z"/><path d="M252 210 l6 6 l6 -6 l-6 2z"/></g>
+              </g>
+              <g class="ing-prod" data-prod="saco">
+                <path d="M206 206 Q260 194 314 206 L320 276 Q260 290 200 276 Z" fill="#d9d4c7" stroke="#003a43" stroke-width="2" stroke-linejoin="round"/>
+                <rect x="222" y="226" width="76" height="26" rx="3" fill="#0a7e8f"/>
+                <text x="260" y="244" text-anchor="middle" font-size="13" fill="#ffffff" font-family="SIDIGAP Planes, sans-serif">CEMENTO</text>
+                <text x="260" y="268" text-anchor="middle" font-size="11" fill="#003a43" font-family="SIDIGAP Planes, sans-serif">25 kg</text>
+              </g>
+
+              <!-- marco de escaneo -->
+              <g class="ing-marco" id="ing-marco">
+                <path d="M 176 186 v-14 h14 M 330 172 h14 v14 M 344 274 v14 h-14 M 190 288 h-14 v-14"/>
+              </g>
+              <g clip-path="url(#zona-escaneo)"><rect class="ing-linea" id="ing-linea" x="150" y="150" width="220" height="3"/></g>
+              <g class="ing-tag" id="ing-tag" transform="translate(260 156)"><rect x="-80" y="-15" width="160" height="30" rx="15"/><text y="5" id="ing-tag-txt">Tornillos · 99%</text></g>
+            </svg>
+          </div>
+
+          <div class="ingreso-resultado" aria-live="polite">
+            <p class="ing-estado" id="ing-estado"><span class="ing-dot"></span><span id="ing-estado-txt">Identificando producto…</span></p>
+            <dl class="ing-datos">
+              <div><dt>Producto</dt><dd id="ing-nombre">—</dd></div>
+              <div><dt>Identificado por</dt><dd id="ing-metodo">—</dd></div>
+              <div><dt>Confianza</dt><dd><span class="ing-barra"><i id="ing-conf-barra"></i></span><span id="ing-conf">—</span></dd></div>
+              <div><dt>Cantidad recibida</dt><dd id="ing-cant">—</dd></div>
+              <div><dt>Ubicación asignada</dt><dd id="ing-ubic">—</dd></div>
+            </dl>
+            <p class="ing-stock" id="ing-stock"><span class="ing-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span><span id="ing-stock-txt">—</span></p>
+            <p class="ing-sinbarras" id="ing-sinbarras" hidden>Sin código de barras</p>
+          </div>
+        </div>
+
+        <ol class="ingreso-pasos">
+          <li><b>El producto llega</b><span>Se deja sobre el módulo de ingreso al recibir la mercadería.</span></li>
+          <li><b>La cámara lo reconoce</b><span>Por su caja, forma, color o el texto del empaque, con o sin código de barras.</span></li>
+          <li><b>Queda en tu inventario</b><span>SIDIGAP suma la cantidad al stock y le asigna una ubicación en la bodega.</span></li>
+        </ol>
       </div>
     </div>
 
@@ -891,6 +1055,68 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         else { mapa.classList.remove('con-destino'); mapa.querySelectorAll('.est.destino-activo').forEach(function (g) { g.classList.remove('destino-activo'); }); }
       });
     });
+  })();
+</script>
+<script>
+  // Ejemplo de ingreso automático: la cámara identifica el producto y lo suma al stock
+  (function () {
+    var demo = document.querySelector('.ingreso-demo'); if (!demo) return;
+    var P = {
+      caja:    { tag: 'Tornillos · 99%', nombre: 'Tornillos volcanita 6 × 1" (caja de 100)', metodo: 'Logo, texto y código de la caja', conf: 99, cant: '12 cajas', ubic: '4A · Nivel 3', stock: 'Ingresado al inventario · stock 18 → 30 cajas', sinBarras: false },
+      taladro: { tag: 'Taladro · 96%', nombre: 'Taladro percutor 13 mm', metodo: 'Forma y color del producto', conf: 96, cant: '4 unidades', ubic: '3B · Nivel 2', stock: 'Ingresado al inventario · stock 6 → 10 unidades', sinBarras: false },
+      tomates: { tag: 'Tomate · 97%', nombre: 'Tomate larga vida', metodo: 'Forma, color y tamaño', conf: 97, cant: '3 cajones', ubic: 'Zona refrigerada · R1', stock: 'Ingresado al inventario · stock 5 → 8 cajones', sinBarras: true },
+      saco:    { tag: 'Cemento · 98%', nombre: 'Cemento 25 kg', metodo: 'Empaque y texto impreso', conf: 98, cant: '20 sacos', ubic: '4A · Nivel 1', stock: 'Ingresado al inventario · stock 40 → 60 sacos', sinBarras: false }
+    };
+    var reducido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var $ = function (id) { return document.getElementById(id); };
+    var prods = demo.querySelectorAll('.ing-prod'), chips = document.querySelectorAll('.ing-chip');
+    var timers = [];
+    function limpiar() { timers.forEach(clearTimeout); timers = []; }
+    function datos(d) {
+      $('ing-nombre').textContent = d ? d.nombre : '—';
+      $('ing-metodo').textContent = d ? d.metodo : '—';
+      $('ing-conf').textContent = d ? d.conf + '%' : '—';
+      $('ing-conf-barra').style.width = d ? d.conf + '%' : '0';
+      $('ing-cant').textContent = d ? d.cant : '—';
+      $('ing-ubic').textContent = d ? d.ubic : '—';
+      $('ing-stock-txt').textContent = d ? d.stock : '—';
+      $('ing-sinbarras').hidden = !(d && d.sinBarras);
+    }
+    function escanear(id) {
+      var d = P[id]; limpiar();
+      demo.classList.remove('listo', 'escaneando');
+      prods.forEach(function (g) { g.classList.remove('visible'); });
+      datos(d);
+      $('ing-conf-barra').style.width = '0';
+      $('ing-conf').textContent = '…';
+      $('ing-estado-txt').textContent = 'Producto en camino…';
+      $('ing-tag-txt').textContent = d.tag;
+      var paso = function (fn, ms) { timers.push(setTimeout(fn, reducido ? 0 : ms)); };
+      paso(function () { demo.querySelector('.ing-prod[data-prod="' + id + '"]').classList.add('visible'); }, 150);
+      paso(function () { demo.classList.add('escaneando'); $('ing-estado-txt').textContent = 'Identificando producto…'; }, 650);
+      paso(function () {
+        demo.classList.remove('escaneando'); demo.classList.add('listo');
+        $('ing-estado-txt').textContent = 'Producto identificado';
+        $('ing-conf-barra').style.width = d.conf + '%';
+        $('ing-conf').textContent = d.conf + '%';
+      }, 2300);
+    }
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        chips.forEach(function (o) { var on = o === c; o.classList.toggle('activa', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        escanear(c.getAttribute('data-prod'));
+      });
+    });
+    // Arranca la demo cuando la sección se ve por primera vez
+    var iniciado = false;
+    function iniciar() { if (iniciado) return; iniciado = true; escanear('caja'); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { iniciar(); io.disconnect(); } }, { threshold: .3 });
+      io.observe(demo);
+    } else iniciar();
+    // Estado de reposo visible aunque no se haya escaneado aún
+    demo.querySelector('.ing-prod[data-prod="caja"]').classList.add('visible');
+    demo.classList.add('listo'); datos(P.caja); $('ing-estado-txt').textContent = 'Producto identificado';
   })();
 </script>
 </body>
