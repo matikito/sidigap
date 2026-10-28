@@ -162,6 +162,50 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .diagrama svg { display: block; width: 100%; min-width: 640px; height: auto; font-family: var(--font-b); }
 .vision { padding-block: 30px 0; min-height: 360px; }
 
+/* ---------- Mapa de calor ---------- */
+.calor-panel { display: flex; flex-direction: column; gap: 14px; margin: 8px 0 4px; }
+.calor-panel .desliza { margin: 0; }
+.calor-barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.leyenda { display: flex; align-items: center; gap: 10px; font-family: var(--font-b); font-size: 14px; color: var(--teal); }
+.leyenda i { width: 140px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #ff3131, #ff751f, #ff914d, #ffbd59, #ffde59, #7ed957, #00bf63); }
+.vistas { display: inline-flex; border: 2px solid var(--teal); border-radius: 999px; padding: 3px; gap: 3px; }
+.vista { border: 0; background: transparent; color: var(--teal); font-family: var(--font-a); font-size: 15px; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+.vista.activa { background: var(--teal); color: var(--blanco); }
+.vista:focus-visible, .buscador select:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+.buscador { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.buscador label { font-family: var(--font-a); font-size: 15px; color: var(--teal); }
+.buscador select { appearance: none; -webkit-appearance: none; min-width: 0; max-width: 100%; font-family: var(--font-b); font-size: 16px; color: var(--teal); background: var(--blanco) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230a7e8f' stroke-width='2'/%3E%3C/svg%3E") right 14px center / 12px no-repeat; border: 2px solid var(--teal); border-radius: 999px; padding: 7px 40px 7px 16px; cursor: pointer; }
+.calor-panel[data-vista="reub"] .buscador { visibility: hidden; }
+.plano { font-family: var(--font-b); }
+.plano .muro { fill: none; stroke: var(--teal); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.plano .puerta line { stroke: var(--teal); stroke-width: 4; stroke-dasharray: 4 7; stroke-linecap: round; }
+.plano .puerta text { font-size: 12px; letter-spacing: .12em; fill: var(--teal); text-anchor: middle; dominant-baseline: central; }
+.plano .pasillo text { font-size: 11px; letter-spacing: .18em; fill: var(--teal); opacity: .55; text-anchor: middle; dominant-baseline: central; }
+.plano .est .base { fill: #ffffff; }
+.plano .est .tinte { fill-opacity: .3; stroke-width: 2.5; }
+.plano .est .id { font-size: 16px; fill: var(--petroleo); text-anchor: middle; dominant-baseline: central; }
+.plano .est .sal { font-size: 10.5px; fill: var(--petroleo); opacity: .9; text-anchor: middle; dominant-baseline: central; }
+.plano .est { transition: opacity .25s; }
+#mapa-calor[data-vista="ruta"].con-destino .est:not(.destino-activo) { opacity: .82; }
+.plano .est.destino-activo .tinte { fill-opacity: .45; stroke: var(--petroleo); stroke-width: 3; }
+.plano .ruta path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.plano #ruta-base { stroke: var(--petroleo); stroke-opacity: .15; stroke-width: 8; }
+.plano #ruta-trazo { stroke: var(--petroleo); stroke-width: 3; stroke-dasharray: 2 8; }
+.plano .ruta .punto { fill: var(--petroleo); stroke: #ffffff; stroke-width: 2.5; }
+.plano .ruta .destino { fill: none; stroke: var(--petroleo); stroke-width: 2.5; animation: pulso 2s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+.plano .ruta .etiqueta rect, .plano .reub rect { fill: var(--petroleo); }
+.plano .ruta .etiqueta text, .plano .reub text { fill: #ffffff; font-size: 13px; text-anchor: middle; }
+.plano .reub path { fill: none; stroke: var(--teal); stroke-width: 3; stroke-dasharray: 8 6; stroke-linejoin: round; }
+#mapa-calor[data-vista="ruta"] .reub, #mapa-calor[data-vista="reub"] .ruta { display: none; }
+@keyframes pulso { 0% { opacity: .9; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.4); } }
+@media (prefers-reduced-motion: reduce) { .plano .ruta .destino { animation: none; opacity: .6; } }
+.calor-datos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid rgba(10,126,143,.25); }
+.calor-datos div { padding: 12px 14px 0; border-left: 1px solid rgba(10,126,143,.25); min-width: 0; }
+.calor-datos div:first-child, .calor-datos div:nth-child(4) { border-left: 0; }
+.calor-datos dt { font-family: var(--font-a); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); opacity: .75; }
+.calor-datos dd { margin: 2px 0 0; font-family: var(--font-b); font-size: clamp(17px, 1.6vw, 22px); color: var(--teal); overflow-wrap: anywhere; }
+@media (max-width: 620px) { .calor-datos { grid-template-columns: 1fr; } .calor-datos div { border-left: 0; padding-inline: 0; } .leyenda i { width: 90px; } .buscador select { width: 100%; } }
+
 /* ---------- Estanterías clicables y pop-up de detalle ---------- */
 .zona { fill: transparent; stroke: transparent; stroke-width: 4; cursor: pointer; transition: fill .15s, stroke .15s; }
 .zona:hover { fill: rgba(0,0,0,.12); stroke: #003a43; }
@@ -379,91 +423,54 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
         <p>El conocimiento de tu bodega ya no dependerá de la memoria de un solo trabajador. Hemos digitalizado el espacio físico mediante tablets operativas que guían al personal paso a paso.</p>
         <p>Imagina que un nuevo operario necesita preparar un pedido que incluye un taladro específico y una caja de tornillos. En lugar de buscar pasillo por pasillo, la tablet despliega un mapa 2D del recinto. Una ruta visual le indica caminar hacia el Pasillo B,  3B, Nivel 2.</p>
 
-        <p class="desliza">Desliza para ver el mapa completo &rarr;</p>
-        <div class="diagrama">
-          <svg viewBox="40 1180 1270 485" role="img" aria-label="Mapa 2D de la bodega con pasillos A, B, C y D, ubicaciones coloreadas según su frecuencia de salida">
+        <div class="calor-panel">
+          <div class="calor-barra">
+            <div class="leyenda" aria-hidden="true"><span>Mayor salida</span><i></i><span>Menor salida</span></div>
+            <div class="vistas" role="group" aria-label="Vista del mapa">
+              <button type="button" class="vista activa" data-vista="ruta" aria-pressed="true">Ruta de picking</button>
+              <button type="button" class="vista" data-vista="reub" aria-pressed="false">Reubicación sugerida</button>
+            </div>
+          </div>
+          <div class="buscador" id="buscador">
+            <label for="producto">Elige un producto y mira la ruta que seguiría el operario</label>
+            <select id="producto"></select>
+          </div>
+          <p class="desliza">Desliza para ver el mapa completo &rarr;</p>
+          <div class="diagrama" id="mapa-calor" data-vista="ruta">
+          <svg class="plano" viewBox="0 0 1000 500" role="img" aria-label="Mapa de calor de la bodega con la ruta de picking hacia el producto elegido">
             <defs>
-              <linearGradient id="gv" x1="0" y1="1199" x2="0" y2="1647" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="#00bf63"/><stop offset=".2" stop-color="#7ed957"/><stop offset=".35" stop-color="#ffde59"/>
-                <stop offset=".5" stop-color="#ffbd59"/><stop offset=".65" stop-color="#ff914d"/><stop offset=".8" stop-color="#ff751f"/><stop offset="1" stop-color="#ff3131"/>
-              </linearGradient>
+              <pattern id="grilla" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#0a7e8f" stroke-opacity=".07" stroke-width="1"/></pattern>
+              <marker id="punta" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0a7e8f"/></marker>
             </defs>
-            <rect x="40" y="1180" width="1270" height="485" fill="#ffffff"/>
-            <!-- Leyenda vertical -->
-            <line x1="58" y1="1200" x2="58" y2="1646" stroke="url(#gv)" stroke-width="4"/>
-            <polyline points="52,1208 58,1199 64,1208" fill="none" stroke="#00bf63" stroke-width="4" stroke-linejoin="round"/>
-            <polyline points="52,1638 58,1647 64,1638" fill="none" stroke="#ff3131" stroke-width="4" stroke-linejoin="round"/>
-            <g text-anchor="middle" dominant-baseline="central">
-              <text x="138" y="1227" font-size="18.67" fill="#00bf63">MENOR SALIDA</text>
-              <text x="124" y="1244" font-size="12" fill="#00bf63">2 a 3 veces semanal</text>
-              <text x="117" y="1422" font-size="18.67" fill="#ffbd59">ESTÁNDAR</text>
-              <text x="107" y="1438" font-size="12" fill="#ffbd59">3 a 4 semanal</text>
-              <text x="139" y="1617" font-size="17.5" fill="#ff3131">MAYOR SALIDA</text>
-              <text x="106" y="1632" font-size="12" fill="#ff3131">Todos los días</text>
+            <rect x="0" y="0" width="1000" height="500" fill="#ffffff"/>
+            <rect x="20" y="20" width="960" height="440" fill="url(#grilla)"/>
+            <path class="muro" d="M 20 300 V 20 H 980 V 460 H 970 M 880 460 H 20 V 400"/>
+            <g class="puerta"><line x1="20" y1="300" x2="20" y2="400"/><text transform="translate(10 350) rotate(-90)">ZONA DESCARGA</text></g>
+            <g class="puerta"><line x1="880" y1="460" x2="970" y2="460"/><text x="925" y="482">SALA DE VENTAS</text></g>
+            <g class="pasillo"><text x="300" y="120">PASILLO B</text><text x="300" y="248">PASILLO A</text><text transform="translate(118 390) rotate(-90)">PASILLO C</text><text transform="translate(944 200) rotate(90)">PASILLO D</text></g>
+            <g class="est" data-est="1B"><rect class="base" x="170" y="40" width="104" height="40" rx="6"/><rect class="tinte" x="170" y="40" width="104" height="40" rx="6" fill="#00bf63" stroke="#00bf63"/><rect class="barra" x="178" y="73" width="88" height="4" rx="2" fill="#00bf63"/><text class="id" x="222.0" y="53.0">1B</text><text class="sal" x="222.0" y="68.0">5/sem</text></g><g class="est" data-est="2B"><rect class="base" x="294" y="40" width="104" height="40" rx="6"/><rect class="tinte" x="294" y="40" width="104" height="40" rx="6" fill="#00bf63" stroke="#00bf63"/><rect class="barra" x="302" y="73" width="88" height="4" rx="2" fill="#00bf63"/><text class="id" x="346.0" y="53.0">2B</text><text class="sal" x="346.0" y="68.0">6/sem</text></g><g class="est" data-est="3B"><rect class="base" x="418" y="40" width="104" height="40" rx="6"/><rect class="tinte" x="418" y="40" width="104" height="40" rx="6" fill="#00bf63" stroke="#00bf63"/><rect class="barra" x="426" y="73" width="88" height="4" rx="2" fill="#00bf63"/><text class="id" x="470.0" y="53.0">3B</text><text class="sal" x="470.0" y="68.0">7/sem</text></g><g class="est" data-est="4B"><rect class="base" x="542" y="40" width="104" height="40" rx="6"/><rect class="tinte" x="542" y="40" width="104" height="40" rx="6" fill="#7ed957" stroke="#7ed957"/><rect class="barra" x="550" y="73" width="88" height="4" rx="2" fill="#7ed957"/><text class="id" x="594.0" y="53.0">4B</text><text class="sal" x="594.0" y="68.0">10/sem</text></g><g class="est" data-est="5B"><rect class="base" x="666" y="40" width="104" height="40" rx="6"/><rect class="tinte" x="666" y="40" width="104" height="40" rx="6" fill="#7ed957" stroke="#7ed957"/><rect class="barra" x="674" y="73" width="88" height="4" rx="2" fill="#7ed957"/><text class="id" x="718.0" y="53.0">5B</text><text class="sal" x="718.0" y="68.0">12/sem</text></g><g class="est" data-est="6B"><rect class="base" x="790" y="40" width="104" height="40" rx="6"/><rect class="tinte" x="790" y="40" width="104" height="40" rx="6" fill="#ff914d" stroke="#ff914d"/><rect class="barra" x="798" y="73" width="88" height="4" rx="2" fill="#ff914d"/><text class="id" x="842.0" y="53.0">6B</text><text class="sal" x="842.0" y="68.0">27/sem</text></g><g class="est" data-est="7B"><rect class="base" x="170" y="130" width="104" height="40" rx="6"/><rect class="tinte" x="170" y="130" width="104" height="40" rx="6" fill="#7ed957" stroke="#7ed957"/><rect class="barra" x="178" y="163" width="88" height="4" rx="2" fill="#7ed957"/><text class="id" x="222.0" y="143.0">7B</text><text class="sal" x="222.0" y="158.0">11/sem</text></g><g class="est" data-est="8B"><rect class="base" x="294" y="130" width="104" height="40" rx="6"/><rect class="tinte" x="294" y="130" width="104" height="40" rx="6" fill="#ffde59" stroke="#ffde59"/><rect class="barra" x="302" y="163" width="88" height="4" rx="2" fill="#ffde59"/><text class="id" x="346.0" y="143.0">8B</text><text class="sal" x="346.0" y="158.0">19/sem</text></g><g class="est" data-est="9B"><rect class="base" x="542" y="130" width="104" height="40" rx="6"/><rect class="tinte" x="542" y="130" width="104" height="40" rx="6" fill="#ff914d" stroke="#ff914d"/><rect class="barra" x="550" y="163" width="88" height="4" rx="2" fill="#ff914d"/><text class="id" x="594.0" y="143.0">9B</text><text class="sal" x="594.0" y="158.0">25/sem</text></g><g class="est" data-est="10B"><rect class="base" x="666" y="130" width="104" height="40" rx="6"/><rect class="tinte" x="666" y="130" width="104" height="40" rx="6" fill="#ff751f" stroke="#ff751f"/><rect class="barra" x="674" y="163" width="88" height="4" rx="2" fill="#ff751f"/><text class="id" x="718.0" y="143.0">10B</text><text class="sal" x="718.0" y="158.0">33/sem</text></g><g class="est" data-est="1A"><rect class="base" x="170" y="172" width="104" height="40" rx="6"/><rect class="tinte" x="170" y="172" width="104" height="40" rx="6" fill="#ffde59" stroke="#ffde59"/><rect class="barra" x="178" y="205" width="88" height="4" rx="2" fill="#ffde59"/><text class="id" x="222.0" y="185.0">1A</text><text class="sal" x="222.0" y="200.0">17/sem</text></g><g class="est" data-est="2A"><rect class="base" x="294" y="172" width="104" height="40" rx="6"/><rect class="tinte" x="294" y="172" width="104" height="40" rx="6" fill="#ffde59" stroke="#ffde59"/><rect class="barra" x="302" y="205" width="88" height="4" rx="2" fill="#ffde59"/><text class="id" x="346.0" y="185.0">2A</text><text class="sal" x="346.0" y="200.0">20/sem</text></g><g class="est" data-est="3A"><rect class="base" x="542" y="172" width="104" height="40" rx="6"/><rect class="tinte" x="542" y="172" width="104" height="40" rx="6" fill="#ff751f" stroke="#ff751f"/><rect class="barra" x="550" y="205" width="88" height="4" rx="2" fill="#ff751f"/><text class="id" x="594.0" y="185.0">3A</text><text class="sal" x="594.0" y="200.0">31/sem</text></g><g class="est" data-est="4A"><rect class="base" x="666" y="172" width="104" height="40" rx="6"/><rect class="tinte" x="666" y="172" width="104" height="40" rx="6" fill="#ff3131" stroke="#ff3131"/><rect class="barra" x="674" y="205" width="88" height="4" rx="2" fill="#ff3131"/><text class="id" x="718.0" y="185.0">4A</text><text class="sal" x="718.0" y="200.0">44/sem</text></g><g class="est" data-est="5A"><rect class="base" x="170" y="372" width="104" height="40" rx="6"/><rect class="tinte" x="170" y="372" width="104" height="40" rx="6" fill="#ffde59" stroke="#ffde59"/><rect class="barra" x="178" y="405" width="88" height="4" rx="2" fill="#ffde59"/><text class="id" x="222.0" y="385.0">5A</text><text class="sal" x="222.0" y="400.0">16/sem</text></g><g class="est" data-est="6A"><rect class="base" x="294" y="372" width="104" height="40" rx="6"/><rect class="tinte" x="294" y="372" width="104" height="40" rx="6" fill="#ff751f" stroke="#ff751f"/><rect class="barra" x="302" y="405" width="88" height="4" rx="2" fill="#ff751f"/><text class="id" x="346.0" y="385.0">6A</text><text class="sal" x="346.0" y="400.0">34/sem</text></g><g class="est" data-est="7A"><rect class="base" x="542" y="372" width="104" height="40" rx="6"/><rect class="tinte" x="542" y="372" width="104" height="40" rx="6" fill="#ff3131" stroke="#ff3131"/><rect class="barra" x="550" y="405" width="88" height="4" rx="2" fill="#ff3131"/><text class="id" x="594.0" y="385.0">7A</text><text class="sal" x="594.0" y="400.0">41/sem</text></g><g class="est" data-est="8A"><rect class="base" x="666" y="372" width="104" height="40" rx="6"/><rect class="tinte" x="666" y="372" width="104" height="40" rx="6" fill="#ff3131" stroke="#ff3131"/><rect class="barra" x="674" y="405" width="88" height="4" rx="2" fill="#ff3131"/><text class="id" x="718.0" y="385.0">8A</text><text class="sal" x="718.0" y="400.0">48/sem</text></g><g class="est" data-est="2C"><rect class="base" x="44" y="40" width="40" height="112" rx="6"/><rect class="tinte" x="44" y="40" width="40" height="112" rx="6" fill="#00bf63" stroke="#00bf63"/><rect class="barra" x="77" y="48" width="4" height="96" rx="2" fill="#00bf63"/><text class="id" transform="translate(61.0 80.0) rotate(-90)">2C</text><text class="sal" transform="translate(61.0 120.0) rotate(-90)">4/sem</text></g><g class="est" data-est="1C"><rect class="base" x="44" y="160" width="40" height="112" rx="6"/><rect class="tinte" x="44" y="160" width="40" height="112" rx="6" fill="#7ed957" stroke="#7ed957"/><rect class="barra" x="77" y="168" width="4" height="96" rx="2" fill="#7ed957"/><text class="id" transform="translate(61.0 200.0) rotate(-90)">1C</text><text class="sal" transform="translate(61.0 240.0) rotate(-90)">9/sem</text></g>
+            <g class="ruta">
+              <path id="ruta-base" d=""/>
+              <path id="ruta-trazo" d=""/>
+              <circle class="destino" id="ruta-destino" cx="0" cy="0" r="30"/>
+              <circle class="punto" id="ruta-punto" r="7" cx="925" cy="452"/>
+              <g class="etiqueta" id="ruta-etiqueta"><rect x="0" y="-14" width="10" height="28" rx="14"/><text x="0" y="5"></text></g>
             </g>
-            <!-- Marco de la bodega -->
-            <rect x="240" y="1189" width="1053" height="468" fill="none" stroke="#17a488" stroke-width="8"/>
-            <!-- Pasillos -->
-            <line x1="357" y1="1283" x2="1267" y2="1283" stroke="#00bf63" stroke-width="11"/>
-            <line x1="357" y1="1516" x2="1218" y2="1516" stroke="#ffde59" stroke-width="11"/>
-            <line x1="357" y1="1230" x2="357" y2="1627" stroke="#5170ff" stroke-width="11"/>
-            <line x1="1218" y1="1283" x2="1218" y2="1574" stroke="#ff914d" stroke-width="11"/>
-            <polyline points="1202,1555 1218,1577 1235,1555" fill="none" stroke="#ff914d" stroke-width="11" stroke-linejoin="round"/>
-            <!-- Ubicaciones -->
-            <g>
-              <rect x="416" y="1194" width="137" height="49" fill="#00bf63"/><rect x="564" y="1194" width="137" height="49" fill="#00bf63"/>
-              <rect x="709" y="1194" width="137" height="49" fill="#00bf63"/><rect x="854" y="1194" width="137" height="49" fill="#7ed957"/>
-              <rect x="1002" y="1194" width="137" height="49" fill="#7ed957"/><rect x="1150" y="1194" width="137" height="49" fill="#ff914d"/>
-              <rect x="416" y="1322" width="137" height="49" fill="#7ed957"/><rect x="564" y="1322" width="137" height="49" fill="#ffde59"/>
-              <rect x="854" y="1322" width="137" height="49" fill="#ff914d"/><rect x="1002" y="1322" width="137" height="49" fill="#ff751f"/>
-              <rect x="416" y="1383" width="137" height="49" fill="#ffde59"/><rect x="564" y="1383" width="137" height="49" fill="#ffde59"/>
-              <rect x="854" y="1383" width="137" height="49" fill="#ff751f"/><rect x="1002" y="1383" width="137" height="49" fill="#ff3131"/>
-              <rect x="416" y="1601" width="137" height="49" fill="#ffde59"/><rect x="564" y="1601" width="137" height="49" fill="#ff751f"/>
-              <rect x="854" y="1601" width="137" height="49" fill="#ff3131"/><rect x="1002" y="1601" width="137" height="49" fill="#ff3131"/>
-              <rect x="249" y="1194" width="49" height="137" fill="#00bf63"/><rect x="249" y="1339" width="49" height="137" fill="#7ed957"/>
+            <g class="reub">
+              <path d="M 346.0 84 V 104 H 470.0 V 292 H 594.0 V 222" marker-end="url(#punta)"/>
+              <g transform="translate(470.0 334)"><rect x="-118" y="-16" width="236" height="32" rx="16"/><text y="5">Luces Led Interior · 2B → 3A</text></g>
             </g>
-            <g text-anchor="middle" dominant-baseline="central" font-size="18.67" fill="#ffffff">
-              <text x="484.5" y="1219">1B</text><text x="632.5" y="1219">2B</text><text x="777.5" y="1219">3B</text>
-              <text x="922.5" y="1219">4B</text><text x="1070.5" y="1219">5B</text><text x="1218.5" y="1219">6B</text>
-              <text x="484.5" y="1347">7B</text><text x="632.5" y="1347">8B</text><text x="922.5" y="1347">9B</text><text x="1070.5" y="1347">10B</text>
-              <text x="484.5" y="1408">1A</text><text x="632.5" y="1408">2A</text><text x="922.5" y="1408">3A</text><text x="1070.5" y="1408">4A</text>
-              <text x="484.5" y="1626">5A</text><text x="632.5" y="1626">6A</text><text x="922.5" y="1626">7A</text><text x="1070.5" y="1626">8A</text>
-              <text transform="translate(273.5 1262.5) rotate(-90)">2C</text>
-              <text transform="translate(273.5 1407.5) rotate(-90)">1C</text>
-            </g>
-            <g text-anchor="middle" dominant-baseline="central" font-size="18.67">
-              <text x="417" y="1305" fill="#00bf63">PASILLO B</text>
-              <text x="416" y="1538" fill="#ffde59">PASILLO A</text>
-              <text transform="translate(335.5 1566) rotate(-90)" fill="#5170ff">PASILLO C</text>
-              <text transform="translate(1202.5 1446) rotate(90)" fill="#ff751f">PASILLO D</text>
-            </g>
-            <rect x="242" y="1489" width="19" height="143" fill="#000000"/>
-            <text transform="translate(251.5 1560.5) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="14.67" fill="#ffffff">ZONA DESCARGA</text>
-            <rect x="1153" y="1636" width="131" height="17" fill="#000000"/>
-            <text x="1218.5" y="1645" text-anchor="middle" dominant-baseline="central" font-size="13.33" fill="#ffffff">SALA DE VENTAS</text>
-            <g class="zonas">
-              <rect class="zona" data-estante="1B" x="416" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1B"/>
-              <rect class="zona" data-estante="2B" x="564" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2B"/>
-              <rect class="zona" data-estante="3B" x="709" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 3B"/>
-              <rect class="zona" data-estante="4B" x="854" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 4B"/>
-              <rect class="zona" data-estante="5B" x="1002" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 5B"/>
-              <rect class="zona" data-estante="6B" x="1150" y="1194" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 6B"/>
-              <rect class="zona" data-estante="7B" x="416" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 7B"/>
-              <rect class="zona" data-estante="8B" x="564" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 8B"/>
-              <rect class="zona" data-estante="9B" x="854" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 9B"/>
-              <rect class="zona" data-estante="10B" x="1002" y="1322" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 10B"/>
-              <rect class="zona" data-estante="1A" x="416" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1A"/>
-              <rect class="zona" data-estante="2A" x="564" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2A"/>
-              <rect class="zona" data-estante="3A" x="854" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 3A"/>
-              <rect class="zona" data-estante="4A" x="1002" y="1383" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 4A"/>
-              <rect class="zona" data-estante="5A" x="416" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 5A"/>
-              <rect class="zona" data-estante="6A" x="564" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 6A"/>
-              <rect class="zona" data-estante="7A" x="854" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 7A"/>
-              <rect class="zona" data-estante="8A" x="1002" y="1601" width="137" height="49" tabindex="0" role="button" aria-label="Ver detalle de la estantería 8A"/>
-              <rect class="zona" data-estante="2C" x="249" y="1194" width="49" height="137" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2C"/>
-              <rect class="zona" data-estante="1C" x="249" y="1339" width="49" height="137" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1C"/>
-            </g>
+            <g class="zonas"><rect class="zona" data-estante="1B" x="170" y="40" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1B"/><rect class="zona" data-estante="2B" x="294" y="40" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2B"/><rect class="zona" data-estante="3B" x="418" y="40" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 3B"/><rect class="zona" data-estante="4B" x="542" y="40" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 4B"/><rect class="zona" data-estante="5B" x="666" y="40" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 5B"/><rect class="zona" data-estante="6B" x="790" y="40" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 6B"/><rect class="zona" data-estante="7B" x="170" y="130" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 7B"/><rect class="zona" data-estante="8B" x="294" y="130" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 8B"/><rect class="zona" data-estante="9B" x="542" y="130" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 9B"/><rect class="zona" data-estante="10B" x="666" y="130" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 10B"/><rect class="zona" data-estante="1A" x="170" y="172" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1A"/><rect class="zona" data-estante="2A" x="294" y="172" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2A"/><rect class="zona" data-estante="3A" x="542" y="172" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 3A"/><rect class="zona" data-estante="4A" x="666" y="172" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 4A"/><rect class="zona" data-estante="5A" x="170" y="372" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 5A"/><rect class="zona" data-estante="6A" x="294" y="372" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 6A"/><rect class="zona" data-estante="7A" x="542" y="372" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 7A"/><rect class="zona" data-estante="8A" x="666" y="372" width="104" height="40" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 8A"/><rect class="zona" data-estante="2C" x="44" y="40" width="40" height="112" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 2C"/><rect class="zona" data-estante="1C" x="44" y="160" width="40" height="112" rx="6" tabindex="0" role="button" aria-label="Ver detalle de la estantería 1C"/></g>
           </svg>
+          </div>
+          <dl class="calor-datos" id="calor-datos">
+            <div data-vista="ruta"><dt id="d-rec-t">Recorrido hasta 3B</dt><dd id="d-rec">38 m · 45 s</dd></div>
+            <div data-vista="ruta"><dt>Ubicación</dt><dd id="d-ubi">Pasillo B · Nivel 2</dd></div>
+            <div data-vista="ruta"><dt>Salida de la estantería</dt><dd id="d-sal">7 por semana</dd></div>
+            <div data-vista="reub" hidden><dt>Producto en alza</dt><dd>Luces Led Interior +60%</dd></div>
+            <div data-vista="reub" hidden><dt>Mover</dt><dd>De 2B a 3A</dd></div>
+            <div data-vista="reub" hidden><dt>Ahorro en recorrido</dt><dd>−35%</dd></div>
+          </dl>
         </div>
 
         <p class="ayuda-mapa">Haz clic en una estantería del mapa para ver su detalle.</p>
@@ -702,6 +709,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       '2C':  { color: '#00bf63', pasillo: 'C', niveles: [['Rafia', 'Cordeles'], ['Mangueras'], ['Rollos de malla']] }
     };
 
+    window.SIDIGAP_ESTANTES = ESTANTES;
     var dlg = document.getElementById('detalle');
     if (!dlg) return;
     var titulo = document.getElementById('detalle-titulo');
@@ -759,6 +767,123 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       z.addEventListener('click', function () { abrir(z.getAttribute('data-estante'), z); });
       z.addEventListener('keydown', function (ev) {
         if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); abrir(z.getAttribute('data-estante'), z); }
+      });
+    });
+  })();
+</script>
+<script>
+  // Mapa de calor: rutas por producto y vista de reubicación
+  (function () {
+    var mapa = document.getElementById('mapa-calor');
+    var E = window.SIDIGAP_ESTANTES;
+    if (!mapa || !E) return;
+    var panel = mapa.closest('.calor-panel');
+    var POS = {'1B':[170,40,104,40],'2B':[294,40,104,40],'3B':[418,40,104,40],'4B':[542,40,104,40],'5B':[666,40,104,40],'6B':[790,40,104,40],'7B':[170,130,104,40],'8B':[294,130,104,40],'9B':[542,130,104,40],'10B':[666,130,104,40],'1A':[170,172,104,40],'2A':[294,172,104,40],'3A':[542,172,104,40],'4A':[666,172,104,40],'5A':[170,372,104,40],'6A':[294,372,104,40],'7A':[542,372,104,40],'8A':[666,372,104,40],'2C':[44,40,40,112],'1C':[44,160,40,112]};
+    var SAL = {'1B':5,'2B':6,'3B':7,'4B':10,'5B':12,'6B':27,'7B':11,'8B':19,'9B':25,'10B':33,'1A':17,'2A':20,'3A':31,'4A':44,'5A':16,'6A':34,'7A':41,'8A':48,'1C':9,'2C':4};
+    var NOMBRE_SALIDA = { '#ff3131': 'Mayor salida', '#ff751f': 'Salida alta', '#ff914d': 'Salida media-alta', '#ffde59': 'Estándar', '#7ed957': 'Salida baja', '#00bf63': 'Menor salida' };
+    var M_POR_UNIDAD = 0.046, M_POR_SEG = 0.85;
+    var INICIO = [925, 452], PB = 104, PA = 292, PC = 130, PD = 925, HUECO = 462;
+
+    // Punto de acceso de cada estantería y el pasillo desde donde se llega
+    function acceso(id) {
+      var p = POS[id], x = p[0], y = p[1], w = p[2], h = p[3], cx = x + w / 2;
+      if (id.slice(-1) === 'C') return { pasillo: 'C', pt: [x + w + 4, y + h / 2] };
+      if (y === 40) return { pasillo: 'B', pt: [cx, y + h + 4] };
+      if (y === 130) return { pasillo: 'B', pt: [cx, y - 4] };
+      if (y === 172) return { pasillo: 'A', pt: [cx, y + h + 4] };
+      return { pasillo: 'A', pt: [cx, y - 4] };
+    }
+    function largo(pts) { var L = 0; for (var i = 1; i < pts.length; i++) L += Math.abs(pts[i][0] - pts[i-1][0]) + Math.abs(pts[i][1] - pts[i-1][1]); return L; }
+    // Recorrido por los pasillos desde la sala de ventas hasta la estantería
+    function ruta(id) {
+      var a = acceso(id), t = a.pt, base = [INICIO, [PD, PA]];
+      if (a.pasillo === 'A') return base.concat([[t[0], PA], t]);
+      if (a.pasillo === 'C') return base.concat([[PC, PA], [PC, t[1]], t]);
+      var porD = base.concat([[PD, PB], [t[0], PB], t]);
+      var porHueco = base.concat([[HUECO, PA], [HUECO, PB], [t[0], PB], t]);
+      return largo(porHueco) < largo(porD) ? porHueco : porD;
+    }
+    function d(pts) { return 'M ' + pts.map(function (p) { return p[0] + ' ' + p[1]; }).join(' L '); }
+
+    // Lista de productos a partir de las estanterías
+    var productos = [];
+    Object.keys(E).forEach(function (id) {
+      E[id].niveles.forEach(function (nivel, i) {
+        nivel.forEach(function (nombre) { productos.push({ nombre: nombre, est: id, nivel: 3 - i }); });
+      });
+    });
+    productos.sort(function (a, b) { return a.nombre.localeCompare(b.nombre, 'es'); });
+    var sel = document.getElementById('producto');
+    productos.forEach(function (p, i) {
+      var o = document.createElement('option');
+      o.value = i; o.textContent = p.nombre + ' (' + p.est + ')';
+      sel.appendChild(o);
+    });
+
+    var base = document.getElementById('ruta-base'), trazo = document.getElementById('ruta-trazo');
+    var punto = document.getElementById('ruta-punto'), destino = document.getElementById('ruta-destino');
+    var etq = document.getElementById('ruta-etiqueta');
+    var reducido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var anim = null;
+
+    function mostrar(p) {
+      var pts = ruta(p.est), camino = d(pts), info = E[p.est], pos = POS[p.est];
+      base.setAttribute('d', camino); trazo.setAttribute('d', camino);
+      destino.setAttribute('cx', pos[0] + pos[2] / 2); destino.setAttribute('cy', pos[1] + pos[3] / 2);
+      mapa.classList.add('con-destino');
+      mapa.querySelectorAll('.est').forEach(function (g) { g.classList.toggle('destino-activo', g.getAttribute('data-est') === p.est); });
+
+      // Etiqueta en el último tramo, dentro del plano
+      var txt = etq.querySelector('text'), rect = etq.querySelector('rect');
+      txt.textContent = p.est + ' · Nivel ' + p.nivel + ' · ' + p.nombre;
+      var ancho = Math.max(120, txt.getComputedTextLength() + 32);
+      rect.setAttribute('width', ancho); rect.setAttribute('x', -ancho / 2);
+      var ex = Math.min(Math.max(pts[pts.length - 2][0], 30 + ancho / 2), 970 - ancho / 2);
+      var ey = 334;
+      etq.setAttribute('transform', 'translate(' + ex + ' ' + ey + ')');
+
+      var metros = Math.round(largo(pts) * M_POR_UNIDAD), seg = Math.round(metros / M_POR_SEG);
+      document.getElementById('d-rec-t').textContent = 'Recorrido hasta ' + p.est;
+      document.getElementById('d-rec').textContent = metros + ' m · ' + seg + ' s';
+      document.getElementById('d-ubi').textContent = 'Pasillo ' + info.pasillo + ' · Nivel ' + p.nivel;
+      document.getElementById('d-sal').textContent = SAL[p.est] + ' por semana · ' + (NOMBRE_SALIDA[info.color] || '');
+
+      // En pantallas angostas, desplaza el mapa para que se vea el destino
+      if (mapa.scrollWidth > mapa.clientWidth) {
+        var esc = mapa.scrollWidth / 1000;
+        mapa.scrollTo({ left: Math.max(0, (pos[0] + pos[2] / 2) * esc - mapa.clientWidth / 2), behavior: reducido ? 'auto' : 'smooth' });
+      }
+      // Animación: el punto recorre la ruta desde la sala de ventas
+      if (anim) cancelAnimationFrame(anim);
+      var L = base.getTotalLength();
+      if (reducido) { var fin = base.getPointAtLength(L); punto.setAttribute('cx', fin.x); punto.setAttribute('cy', fin.y); return; }
+      var t0 = null, dur = Math.max(1200, L * 2.2);
+      function paso(t) {
+        if (t0 === null) t0 = t;
+        var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        var pt = base.getPointAtLength(e * L);
+        punto.setAttribute('cx', pt.x); punto.setAttribute('cy', pt.y);
+        if (k < 1) anim = requestAnimationFrame(paso);
+      }
+      anim = requestAnimationFrame(paso);
+    }
+
+    sel.addEventListener('change', function () { mostrar(productos[+sel.value]); });
+    var inicial = productos.findIndex ? productos.findIndex(function (p) { return p.nombre === 'Taladros'; }) : 0;
+    sel.value = inicial < 0 ? 0 : inicial;
+    mostrar(productos[+sel.value]);
+
+    // Vistas
+    var botones = document.querySelectorAll('.vista');
+    var datos = document.querySelectorAll('#calor-datos > div');
+    botones.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-vista');
+        mapa.setAttribute('data-vista', v); panel.setAttribute('data-vista', v);
+        botones.forEach(function (o) { var on = o === b; o.classList.toggle('activa', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        datos.forEach(function (x) { x.hidden = x.getAttribute('data-vista') !== v; });
+        if (v === 'ruta') mostrar(productos[+sel.value]);
+        else { mapa.classList.remove('con-destino'); mapa.querySelectorAll('.est.destino-activo').forEach(function (g) { g.classList.remove('destino-activo'); }); }
       });
     });
   })();
