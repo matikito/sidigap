@@ -400,6 +400,66 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @media (max-width: 520px) { .arbol-cab, .arbol .fila { grid-template-columns: minmax(0, 1fr) 84px 52px; } .arbol .d4 > .fila { padding-left: 52px; } .arbol .d3 > .fila { padding-left: 40px; } .arbol .d2 > .fila { padding-left: 26px; } .ejes li { grid-template-columns: 96px minmax(0,1fr) 40px; } }
 @media (prefers-reduced-motion: reduce) { .feed li.nuevo, .app-toast { animation: none; } }
 
+/* ---------- Vista previa del software: informes automáticos ---------- */
+.inf-cuerpo { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 16px; padding: 18px clamp(14px, 2.4vw, 26px) 20px; background-image: linear-gradient(rgba(10,126,143,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(10,126,143,.05) 1px, transparent 1px); background-size: 20px 20px; }
+.inf-doc, .inf-envio { background: var(--blanco); border: 1px solid rgba(10,126,143,.25); border-radius: 12px; padding: 16px 18px; min-width: 0; }
+.inf-doc { box-shadow: 0 10px 28px rgba(0,58,67,.08); }
+.inf-doc-cab { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 12px; margin-bottom: 14px; border-bottom: 2px solid var(--teal); }
+.modulo .app p.inf-eti { margin: 0; font-family: var(--font-a); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); }
+.modulo .app p.inf-tit { margin: 2px 0 0; font-size: 22px; line-height: 1.2; color: var(--petroleo); }
+.inf-generar { flex: none; border: 0; background: var(--teal); color: var(--blanco); font-family: var(--font-a); font-size: 14px; padding: 8px 16px; border-radius: 999px; cursor: pointer; }
+.inf-generar:hover { background: var(--petroleo); }
+.inf-generar:focus-visible, .inf-per:focus-visible { outline: 3px solid #3aab46; outline-offset: 2px; }
+.inf-cargando { display: flex; align-items: center; gap: 10px; padding: 0 0 12px; font-size: 15px; color: var(--teal); }
+.inf-cargando span { width: 18px; height: 18px; border-radius: 50%; border: 3px solid rgba(10,126,143,.2); border-top-color: var(--teal); animation: gira .8s linear infinite; }
+@keyframes gira { to { transform: rotate(360deg); } }
+.inf-contenido { transition: opacity .3s; }
+.inf-doc.cargando .inf-contenido { opacity: .25; pointer-events: none; }
+.modulo .app ul { padding-left: 0; }
+.inf-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+.kpi { border: 1px solid rgba(10,126,143,.2); border-radius: 10px; padding: 10px 12px; min-width: 0; }
+.modulo .app p.kpi-n { margin: 0; font-family: var(--font-a); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); line-height: 1.3; }
+.modulo .app p.kpi-v { margin: 4px 0 2px; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.1; color: var(--petroleo); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.modulo .app p.kpi-d { margin: 0; font-size: 12px; color: var(--teal); }
+.kpi-d.sube::before { content: "▲ "; color: #3aab46; }
+.kpi-d.ok::before { content: "✓ "; color: #3aab46; font-weight: 700; }
+.kpi-d.alerta-t::before { content: "! "; color: #f0a33a; font-weight: 700; }
+.inf-dos { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; }
+.inf-bloque { min-width: 0; }
+.inf-tabla-wrap { overflow-x: auto; }
+.inf-tabla { width: 100%; border-collapse: collapse; font-size: 14px; }
+.inf-tabla th { text-align: left; font-family: var(--font-a); font-weight: 400; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); padding: 6px 8px; border-bottom: 1px solid rgba(10,126,143,.25); }
+.inf-tabla td { padding: 7px 8px; border-bottom: 1px solid rgba(10,126,143,.12); font-variant-numeric: tabular-nums; }
+.inf-tabla td:nth-child(n+2), .inf-tabla th:nth-child(n+2) { text-align: right; }
+.inf-tabla .cob { display: inline-flex; align-items: center; gap: 6px; }
+.inf-tabla .cob::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.inf-areas li { grid-template-columns: 120px minmax(0, 1fr) 42px; }
+.inf-areas li.top .valor { background: #ff751f; }
+.modulo .app p.inf-hallazgo { margin: 12px 0 0; font-size: 13px; padding: 8px 10px; border-radius: 8px; background: rgba(255,117,31,.08); border-left: 3px solid #ff751f; }
+.inf-envio h4 { margin-bottom: 6px; }
+.modulo .app p.inf-cero { margin: 0 0 12px; font-size: 13px; color: var(--teal); }
+.inf-canales { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.modulo .app .inf-canales li { display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; row-gap: 4px; align-items: center; padding: 10px 0; border-top: 1px solid rgba(10,126,143,.12); font-size: 13px; }
+.inf-canales li:first-child { border-top: 0; }
+.inf-canales b { display: block; font-size: 14px; }
+.can-ico { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: rgba(10,126,143,.1); grid-row: span 2; }
+.can-ico svg { width: 18px; height: 18px; fill: none; stroke: var(--teal); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.can-est { grid-column: 2; justify-self: start; font-size: 12px; padding: 2px 10px; border-radius: 999px; background: rgba(58,171,70,.12); color: #2a7f35; }
+.can-est.nuevo { background: #3aab46; color: #fff; }
+.modulo .app p.inf-prox { margin: 12px 0 0; padding-top: 12px; border-top: 2px solid var(--teal); font-size: 13px; }
+@media (max-width: 1000px) { .inf-cuerpo { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .inf-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .inf-dos { grid-template-columns: 1fr; } }
+@media (max-width: 520px) {
+  .inf-doc-cab { flex-direction: column; }
+  .modulo .app p.kpi-v { font-size: 17px; overflow-wrap: normal; white-space: nowrap; }
+  .kpi { padding: 9px 10px; }
+  .inf-tabla { font-size: 13px; }
+  .inf-tabla th:nth-child(2), .inf-tabla td:nth-child(2) { display: none; }
+  .inf-tabla td:nth-child(n+3) { white-space: nowrap; }
+  .inf-areas li { grid-template-columns: 104px minmax(0, 1fr) 40px; }
+}
+@media (prefers-reduced-motion: reduce) { .inf-cargando span { animation: none; } }
+
 /* ---------- Estanterías clicables y pop-up de detalle ---------- */
 .zona { fill: transparent; stroke: transparent; stroke-width: 4; cursor: pointer; transition: fill .15s, stroke .15s; }
 .zona:hover { fill: rgba(0,0,0,.12); stroke: #003a43; }
@@ -908,6 +968,66 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <li>Reportes Consolidados en Un Clic: Genera automáticamente informes ejecutivos sobre el estado del stock, índices de rotación, proyección de compras y valorización total del inventario.</li>
           <li>Auditoría de Mermas e Incidencias: Obtén métricas detalladas sobre el porcentaje de merma sobre las ventas (manteniendo el rango óptimo), identificando qué áreas, equipos o productos están generando pérdidas y facilitando auditorías inmediatas.</li>
         </ul>
+        <div class="app inf" id="app-inf">
+          <div class="app-barra">
+            <span class="app-marca"><img src="img/logo-icono.png" alt="" width="18" height="24"> SIDIGAP <em>· Informes</em></span>
+            <div class="app-tabs" role="group" aria-label="Período del informe">
+              <button type="button" class="app-tab inf-per" data-per="semana" aria-pressed="false">Semana</button>
+              <button type="button" class="app-tab inf-per activa" data-per="mes" aria-pressed="true">Mes</button>
+              <button type="button" class="app-tab inf-per" data-per="trimestre" aria-pressed="false">Trimestre</button>
+            </div>
+          </div>
+
+          <div class="inf-cuerpo">
+            <div class="inf-doc" id="inf-doc">
+              <div class="inf-doc-cab">
+                <div>
+                  <p class="inf-eti">Informe ejecutivo de bodega</p>
+                  <p class="inf-tit" id="inf-tit">Octubre 2026</p>
+                </div>
+                <button type="button" class="inf-generar" id="inf-generar">Generar informe</button>
+              </div>
+              <div class="inf-cargando" id="inf-cargando" hidden><span></span>Consolidando stock, ventas y mermas…</div>
+
+              <div class="inf-contenido" id="inf-contenido">
+                <div class="inf-kpis">
+                  <div class="kpi"><p class="kpi-n">Valorización del inventario</p><p class="kpi-v" id="k-val">$48.320.000</p><p class="kpi-d sube" id="k-val-d">+4,1% vs período anterior</p></div>
+                  <div class="kpi"><p class="kpi-n">Índice de rotación</p><p class="kpi-v" id="k-rot">4,2×</p><p class="kpi-d" id="k-rot-d">Promedio de la bodega</p></div>
+                  <div class="kpi"><p class="kpi-n">Productos bajo stock mínimo</p><p class="kpi-v" id="k-crit">6</p><p class="kpi-d alerta-t" id="k-crit-d">Incluidos en la proyección de compras</p></div>
+                  <div class="kpi"><p class="kpi-n">Merma sobre las ventas</p><p class="kpi-v" id="k-mer">1,8%</p><p class="kpi-d ok" id="k-mer-d">Dentro del rango óptimo (≤ 2,0%)</p></div>
+                </div>
+
+                <div class="inf-dos">
+                  <div class="inf-bloque">
+                    <h4>Proyección de compras <span>Próximos 15 días</span></h4>
+                    <div class="inf-tabla-wrap">
+                      <table class="inf-tabla">
+                        <thead><tr><th scope="col">Producto</th><th scope="col">Stock</th><th scope="col">Cobertura</th><th scope="col">Comprar</th></tr></thead>
+                        <tbody id="inf-compras"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="inf-bloque">
+                    <h4>Auditoría de mermas <span>% de merma por área o equipo</span></h4>
+                    <ul class="ejes inf-areas" id="inf-areas"></ul>
+                    <p class="inf-hallazgo" id="inf-hallazgo"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="inf-envio">
+              <h4>Entrega 100% digital</h4>
+              <p class="inf-cero">Política cero papel: cada informe llega listo a tu correo y queda disponible en la plataforma.</p>
+              <ul class="inf-canales">
+                <li><span class="can-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z M3 7l9 6 9-6"/></svg></span><span><b>Correo de gerencia</b>Resumen ejecutivo en PDF</span><span class="can-est" id="env-1">Enviado 08:00</span></li>
+                <li><span class="can-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z M4 10h16 M10 10v10"/></svg></span><span><b>Planilla de datos</b>Detalle exportable a Excel</span><span class="can-est" id="env-2">Disponible</span></li>
+                <li><span class="can-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z M14 3v4h4 M10 12h6 M10 16h6"/></svg></span><span><b>Historial en la plataforma</b>Todos los informes anteriores</span><span class="can-est" id="env-3">36 informes</span></li>
+              </ul>
+              <p class="inf-prox"><b>Próximo envío automático:</b> <span id="inf-prox">lunes 2 de noviembre, 08:00</span></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     </div>
@@ -1460,6 +1580,77 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       var n = $('feed').querySelector('.n-critico'); if (n) n.remove();
       this.hidden = true; $('simular').disabled = false;
     });
+  })();
+</script>
+<script>
+  // Vista previa: informe ejecutivo generado en un clic y entregado en digital
+  (function () {
+    var app = document.getElementById('app-inf'); if (!app) return;
+    var $ = function (id) { return document.getElementById(id); };
+    var ROJO = '#ff3131', AMARILLO = '#f0a33a', VERDE = '#3aab46';
+    var D = {
+      semana: { tit: 'Semana 19 – 25 de octubre', val: '$47.910.000', valD: '+0,9% vs semana anterior', rot: '1,1×', crit: '4', mer: '1,6%',
+        compras: [['Cemento 25 kg', '60 sacos', '5 días', ROJO, '40 sacos'], ['Tornillos volcanita 6 × 1"', '30 cajas', '9 días', AMARILLO, '20 cajas'], ['Tomate larga vida', '8 cajones', '3 días', ROJO, '10 cajones'], ['Pintura látex blanca', '26 u.', '14 días', VERDE, '—']],
+        areas: [['Cámara de frío R1', 0.5], ['Zona de descarga', 0.4], ['Pasillo A', 0.3], ['Sala de ventas', 0.2], ['Pasillo B', 0.2]],
+        hallazgo: 'La cámara de frío R1 concentra la mayor merma de la semana: revisar la mantención del equipo.' },
+      mes: { tit: 'Octubre 2026', val: '$48.320.000', valD: '+4,1% vs septiembre', rot: '4,2×', crit: '6', mer: '1,8%',
+        compras: [['Cemento 25 kg', '60 sacos', '6 días', ROJO, '120 sacos'], ['Tomate larga vida', '8 cajones', '3 días', ROJO, '24 cajones'], ['Clavos 3"', '14 kg', '8 días', AMARILLO, '30 kg'], ['Tornillos volcanita 6 × 1"', '30 cajas', '11 días', AMARILLO, '40 cajas'], ['Taladro percutor 13 mm', '10 u.', '21 días', VERDE, '—']],
+        areas: [['Cámara de frío R1', 0.6], ['Zona de descarga', 0.5], ['Pasillo A', 0.3], ['Sala de ventas', 0.2], ['Pasillo B', 0.2]],
+        hallazgo: 'La cámara de frío R1 y la zona de descarga suman el 61% de la merma del mes.' },
+      trimestre: { tit: 'Agosto – octubre 2026', val: '$48.320.000', valD: '+9,7% vs trimestre anterior', rot: '12,5×', crit: '6', mer: '1,9%',
+        compras: [['Cemento 25 kg', '60 sacos', '6 días', ROJO, '360 sacos'], ['Tomate larga vida', '8 cajones', '3 días', ROJO, '70 cajones'], ['Clavos 3"', '14 kg', '8 días', AMARILLO, '90 kg'], ['Pintura látex blanca', '26 u.', '14 días', VERDE, '30 u.']],
+        areas: [['Zona de descarga', 0.6], ['Cámara de frío R1', 0.5], ['Pasillo A', 0.4], ['Sala de ventas', 0.2], ['Pasillo B', 0.2]],
+        hallazgo: 'La zona de descarga lidera la merma del trimestre: productos dañados al recibir mercadería.' }
+    };
+    var actual = 'mes';
+    function pintar(k) {
+      var d = D[k];
+      $('inf-tit').textContent = d.tit;
+      $('k-val').textContent = d.val; $('k-val-d').textContent = d.valD;
+      $('k-rot').textContent = d.rot; $('k-crit').textContent = d.crit; $('k-mer').textContent = d.mer;
+      var tb = $('inf-compras'); tb.innerHTML = '';
+      d.compras.forEach(function (c) {
+        var tr = document.createElement('tr');
+        [c[0], c[1]].forEach(function (t) { var td = document.createElement('td'); td.textContent = t; tr.appendChild(td); });
+        var tc = document.createElement('td'), sp = document.createElement('span'); sp.className = 'cob'; sp.style.setProperty('--c', c[3]); sp.textContent = c[2]; tc.appendChild(sp); tr.appendChild(tc);
+        var tq = document.createElement('td'); tq.textContent = c[4]; tr.appendChild(tq);
+        tb.appendChild(tr);
+      });
+      var ul = $('inf-areas'); ul.innerHTML = '';
+      var max = 0.8;
+      d.areas.forEach(function (a, i) {
+        var li = document.createElement('li'); if (i === 0) li.className = 'top';
+        li.innerHTML = '<span></span><span class="pista"><span class="valor"></span></span><span class="num"></span>';
+        li.children[0].textContent = a[0];
+        li.querySelector('.valor').style.width = (a[1] / max * 100) + '%';
+        li.children[2].textContent = a[1].toFixed(1).replace('.', ',') + '%';
+        li.title = a[0] + ': ' + a[1].toFixed(1).replace('.', ',') + '% de merma';
+        ul.appendChild(li);
+      });
+      $('inf-hallazgo').textContent = d.hallazgo;
+    }
+    var reducido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function generar(k) {
+      actual = k;
+      $('inf-tit').textContent = D[k].tit;
+      $('inf-doc').classList.add('cargando'); $('inf-cargando').hidden = false;
+      $('inf-generar').disabled = true;
+      setTimeout(function () {
+        pintar(k);
+        $('inf-cargando').hidden = true; $('inf-doc').classList.remove('cargando'); $('inf-generar').disabled = false;
+        var e1 = $('env-1'); e1.textContent = 'Enviado ahora'; e1.classList.add('nuevo');
+        var e2 = $('env-2'); e2.textContent = 'Actualizada ahora'; e2.classList.add('nuevo');
+        var e3 = $('env-3'); e3.textContent = (parseInt(e3.textContent, 10) + 1) + ' informes';
+      }, reducido ? 0 : 1400);
+    }
+    document.querySelectorAll('.inf-per').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('.inf-per').forEach(function (o) { var on = o === b; o.classList.toggle('activa', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        generar(b.getAttribute('data-per'));
+      });
+    });
+    $('inf-generar').addEventListener('click', function () { generar(actual); });
+    pintar('mes');
   })();
 </script>
 </body>
