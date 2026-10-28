@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SIDIGAP</title>
 <meta name="description" content="SIDIGAP - Sistema Digital Integral de Gestión de Activos y Productos">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
 <style>
 /* Layout: una sola página con tres secciones (Inicio, Sistema, Contacto) que replican el diseño de Canva */
 @font-face { font-family: "SIDIGAP Sans"; font-weight: 400; font-display: swap; src: url("fonts/sidigap-a-400.woff") format("woff"); }
@@ -31,6 +34,7 @@
   --font-a: "SIDIGAP Sans", "Glacial Indifference", "Century Gothic", "Avenir Next", system-ui, sans-serif;
   --font-b: "SIDIGAP Planes", "League Spartan", "Century Gothic", system-ui, sans-serif;
   --font-c: "SIDIGAP Contacto", "Helvetica Neue", Arial, sans-serif;
+  --font-poppins: "Poppins", "SIDIGAP Sans", system-ui, sans-serif;
   --nav-h: 54px;
   --ancho: 1351px;
 }
@@ -76,14 +80,14 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .quienes .foto { height: 718px; background: url("img/bodega.webp") center / cover no-repeat; }
 
 /* ---------- Infraestructura ---------- */
-.infra { padding-block: 92px 120px; }
-.infra h2 { margin: 0 0 72px; text-align: center; font-weight: 700; font-size: clamp(28px, 3.16vw, 42.67px); line-height: 1.38; text-wrap: balance; }
-.infra .intro { margin: 0 auto 32px; max-width: 1143px; text-transform: uppercase; text-align: justify; font-size: clamp(16px, 1.78vw, 24px); line-height: 1.375; hyphens: auto; }
+.infra { padding-block: 92px 120px; font-family: var(--font-poppins); }
+.infra h2 { margin: 0 0 72px; text-align: center; font-weight: 600; font-size: clamp(28px, 3.16vw, 42.67px); line-height: 1.38; text-wrap: balance; }
+.infra .intro { margin: 0 auto 32px; max-width: 1143px; text-transform: uppercase; text-align: justify; font-size: clamp(15px, 1.6vw, 21px); line-height: 1.5; hyphens: auto; }
 .servicios { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; max-width: 1180px; margin-inline: auto; }
 .servicios li { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
 .servicios img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-.servicios h3 { margin: 0; font-size: 18.67px; line-height: 1.4; font-weight: 700; letter-spacing: .02em; }
-.servicios p { margin: 0; font-size: 16px; line-height: 1.375; }
+.servicios h3 { margin: 0; font-size: 18px; line-height: 1.4; font-weight: 600; letter-spacing: .02em; }
+.servicios p { margin: 0; font-size: 15px; line-height: 1.5; }
 
 /* ---------- Planes ---------- */
 .planes { background: var(--teal); color: var(--texto-claro); padding-block: 52px 64px; }
