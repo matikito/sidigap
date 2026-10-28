@@ -300,6 +300,106 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 }
 @media (max-width: 480px) { .ing-datos div { grid-template-columns: 1fr; gap: 2px; } }
 
+/* ---------- Vista previa del software: inventario y mermas ---------- */
+[hidden] { display: none !important; }
+.modulo .app p, .modulo .app li { font-size: 14px; font-weight: 400; line-height: 1.4; text-align: left; hyphens: manual; padding-left: 0; max-width: none; }
+.modulo .app .alerta { font-size: 15px; }
+.modulo .app .frio-actual { font-size: 26px; line-height: 1; }
+.modulo .app .app-pie { font-size: 13px; }
+.app { position: relative; margin-top: 26px; border: 2.5px solid var(--teal); border-radius: 18px; overflow: hidden; background: var(--blanco); color: var(--petroleo); font-family: var(--font-b); }
+.app-barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 18px; padding: 10px 16px; background: var(--teal); }
+.app-marca { display: flex; align-items: center; gap: 8px; color: var(--blanco); font-family: var(--font-a); font-weight: 700; font-size: 16px; letter-spacing: .04em; }
+.app-marca img { width: 18px; height: auto; filter: brightness(0) invert(1); }
+.app-marca em { font-style: normal; font-weight: 400; opacity: .8; }
+.app-tabs { display: flex; flex-wrap: wrap; gap: 4px; background: rgba(255,255,255,.14); border-radius: 999px; padding: 3px; }
+.app-tab { border: 0; background: transparent; color: var(--blanco); font-family: var(--font-a); font-size: 14px; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+.app-tab.activa { background: var(--blanco); color: var(--teal); }
+.app-tab:focus-visible, .app-btn:focus-visible, .arbol button:focus-visible, .fefo-cab select:focus-visible { outline: 3px solid #3aab46; outline-offset: 2px; }
+.app-panel { padding: 18px clamp(14px, 2.4vw, 26px) 20px; background-image: linear-gradient(rgba(10,126,143,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(10,126,143,.05) 1px, transparent 1px); background-size: 20px 20px; min-height: 340px; }
+.app-pie { margin: 12px 0 0; font-size: 13px; color: var(--teal); }
+.app h4 { margin: 0 0 12px; font-family: var(--font-a); font-weight: 700; font-size: 16px; color: var(--teal); }
+.app h4 span { font-weight: 400; font-size: 13px; opacity: .8; margin-left: 6px; }
+/* árbol */
+.arbol-niveles { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.nv { font-family: var(--font-a); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; border: 1.5px solid var(--teal); color: var(--teal); background: var(--blanco); }
+.nv2 { margin-left: 0; } .nv1 { background: var(--teal); color: var(--blanco); } .nv2 { background: rgba(10,126,143,.18); } .nv3 { background: rgba(10,126,143,.07); }
+.arbol-tabla { background: var(--blanco); border: 1px solid rgba(10,126,143,.25); border-radius: 12px; overflow: hidden; }
+.arbol-cab, .arbol .fila { display: grid; grid-template-columns: minmax(0, 1fr) 110px 90px; align-items: center; gap: 8px; }
+.arbol-cab { padding: 8px 14px; font-family: var(--font-a); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); border-bottom: 1px solid rgba(10,126,143,.25); }
+.arbol, .arbol ul { list-style: none; margin: 0; padding: 0; }
+.arbol .fila { padding: 7px 14px; border-bottom: 1px solid rgba(10,126,143,.12); font-size: 15px; }
+.arbol .fila > span:nth-child(n+2) { font-variant-numeric: tabular-nums; }
+.arbol button { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+.arbol .flecha-n { display: inline-block; width: 0; height: 0; border-left: 6px solid var(--teal); border-top: 5px solid transparent; border-bottom: 5px solid transparent; transition: transform .15s; flex: none; }
+.arbol li.abierto > .fila .flecha-n { transform: rotate(90deg); }
+.arbol li:not(.abierto) > ul { display: none; }
+.arbol .tipo { font-family: var(--font-a); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); opacity: .7; }
+.arbol .d1 > .fila { background: rgba(10,126,143,.07); font-weight: 700; }
+.arbol .d2 > .fila { padding-left: 34px; }
+.arbol .d3 > .fila { padding-left: 54px; }
+.arbol .d4 > .fila { padding-left: 74px; color: var(--petroleo); }
+.arbol .d4 > .fila .punto-p { width: 7px; height: 7px; border-radius: 50%; background: #3aab46; flex: none; }
+/* FEFO */
+.fefo-cab { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 12px; }
+.fefo-cab label { font-family: var(--font-a); font-size: 14px; color: var(--teal); }
+.fefo-cab select { appearance: none; -webkit-appearance: none; font-family: var(--font-b); font-size: 15px; color: var(--petroleo); background: var(--blanco) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230a7e8f' stroke-width='2'/%3E%3C/svg%3E") right 12px center / 11px no-repeat; border: 2px solid var(--teal); border-radius: 999px; padding: 5px 34px 5px 14px; max-width: 100%; }
+.fefo-regla { font-size: 13px; color: var(--teal); }
+.alerta { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; font-size: 15px; background: var(--blanco); border: 1.5px solid; }
+.alerta::before { content: "!"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-family: var(--font-a); font-weight: 700; font-size: 14px; flex: none; }
+.alerta-aviso { border-color: #f0a33a; } .alerta-aviso::before { background: #f0a33a; }
+.alerta-ok { border-color: #3aab46; } .alerta-ok::before { content: "✓"; background: #3aab46; }
+.fefo-tabla-wrap { overflow-x: auto; background: var(--blanco); border: 1px solid rgba(10,126,143,.25); border-radius: 12px; }
+.fefo-tabla { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+.fefo-tabla th { text-align: left; font-family: var(--font-a); font-weight: 400; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); padding: 9px 14px; border-bottom: 1px solid rgba(10,126,143,.25); }
+.fefo-tabla td { padding: 10px 14px; border-bottom: 1px solid rgba(10,126,143,.12); font-variant-numeric: tabular-nums; }
+.fefo-tabla tr:last-child td { border-bottom: 0; }
+.fefo-tabla tr.primero td { background: rgba(255,49,49,.05); }
+.estado { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; }
+.estado::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+.despachar { margin-left: 8px; font-family: var(--font-a); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--petroleo); color: #fff; white-space: nowrap; }
+/* Mermas */
+.mermas-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 16px; }
+.mermas-ejes, .mermas-frio, .feed { background: var(--blanco); border: 1px solid rgba(10,126,143,.25); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.ejes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.ejes li { display: grid; grid-template-columns: 130px minmax(0, 1fr) 46px; align-items: center; gap: 10px; font-size: 14px; }
+.ejes .pista { position: relative; height: 10px; border-radius: 0 4px 4px 0; background: rgba(10,126,143,.08); }
+.ejes .valor { position: absolute; inset: 0 auto 0 0; background: var(--teal); border-radius: 0 4px 4px 0; }
+.ejes .num { text-align: right; font-variant-numeric: tabular-nums; }
+.modulo .app .mermas-total { margin: 20px 0 0; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.mermas-total::before { content: "✓"; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #3aab46; color: #fff; font-size: 12px; flex: none; }
+.frio-cab { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.frio-actual { margin: 0; font-size: 26px; line-height: 1; font-variant-numeric: tabular-nums; color: var(--petroleo); transition: color .3s; }
+.app.falla .frio-actual { color: #d92020; }
+.frio-graf { display: block; width: 100%; height: auto; font-family: var(--font-b); }
+.frio-graf .eje { font-size: 9px; fill: var(--teal); }
+.frio-graf .grilla { stroke: rgba(10,126,143,.12); stroke-width: 1; }
+.frio-graf .limite { stroke: #d92020; stroke-width: 1.5; stroke-dasharray: 5 5; }
+.frio-graf .lim-txt { font-size: 9.5px; fill: #d92020; }
+.frio-graf .linea { fill: none; stroke: var(--teal); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.frio-graf .area { fill: var(--teal); fill-opacity: .08; }
+.frio-graf .fin { fill: var(--teal); stroke: #fff; stroke-width: 2; }
+.app.falla .frio-graf .fin { fill: #d92020; }
+.frio-acciones { display: flex; gap: 8px; margin-top: 8px; }
+.app-btn { border: 2px solid #d92020; background: var(--blanco); color: #d92020; font-family: var(--font-a); font-size: 14px; padding: 6px 14px; border-radius: 999px; cursor: pointer; }
+.app-btn:hover { background: rgba(217,32,32,.07); }
+.app-btn.sec { border-color: var(--teal); color: var(--teal); }
+.app-btn:disabled { opacity: .5; cursor: default; }
+.feed { margin-top: 16px; }
+.feed ul { list-style: none; margin: 0; padding: 0; }
+.feed li { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid rgba(10,126,143,.12); font-size: 14px; }
+.feed li:first-child { border-top: 0; }
+.feed .ico { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-family: var(--font-a); font-weight: 700; font-size: 13px; }
+.n-critico .ico { background: #d92020; } .n-serio .ico { background: #ff751f; } .n-aviso .ico { background: #f0a33a; }
+.feed time { font-size: 12px; color: var(--teal); white-space: nowrap; }
+.feed li.nuevo { animation: entra .4s ease-out; }
+@keyframes entra { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.app-toast { position: absolute; right: 16px; bottom: 16px; z-index: 5; max-width: min(360px, calc(100% - 32px)); display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--petroleo); color: #fff; font-size: 14px; line-height: 1.35; box-shadow: 0 12px 30px rgba(0,0,0,.25); animation: entra .35s ease-out; }
+.app-toast b { display: block; font-size: 15px; }
+.app-toast::before { content: "!"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #d92020; font-family: var(--font-a); font-weight: 700; flex: none; }
+@media (max-width: 860px) { .mermas-grid { grid-template-columns: 1fr; } .app-tabs { width: 100%; } .app-tab { flex: 1 1 auto; } }
+@media (max-width: 520px) { .arbol-cab, .arbol .fila { grid-template-columns: minmax(0, 1fr) 84px 52px; } .arbol .d4 > .fila { padding-left: 52px; } .arbol .d3 > .fila { padding-left: 40px; } .arbol .d2 > .fila { padding-left: 26px; } .ejes li { grid-template-columns: 96px minmax(0,1fr) 40px; } }
+@media (prefers-reduced-motion: reduce) { .feed li.nuevo, .app-toast { animation: none; } }
+
 /* ---------- Estanterías clicables y pop-up de detalle ---------- */
 .zona { fill: transparent; stroke: transparent; stroke-width: 4; cursor: pointer; transition: fill .15s, stroke .15s; }
 .zona:hover { fill: rgba(0,0,0,.12); stroke: #003a43; }
@@ -727,6 +827,76 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
           <li>Gestión por Trazabilidad (FEFO/FIFO): El sistema monitorea automáticamente las fechas de vencimiento y rotación de los lotes, enviando alertas preventivas antes de que los productos caduquen en las estanterías.</li>
           <li>Control Inteligente de Mermas: Basado en los cuatro ejes clave de merma (Vencimiento, Operacional, Consumo Cliente y Mantención), SIDIGAP detecta anomalías en tiempo real. Si un equipo de frío presenta fallas térmicas o se genera una pérdida operacional, la plataforma genera una notificación inmediata para evitar pérdidas millonarias.</li>
         </ul>
+        <div class="app" id="app-inv">
+          <div class="app-barra">
+            <span class="app-marca"><img src="img/logo-icono.png" alt="" width="18" height="24"> SIDIGAP <em>· Inventario</em></span>
+            <div class="app-tabs" role="tablist" aria-label="Vistas del software">
+              <button type="button" role="tab" class="app-tab activa" data-tab="arbol" aria-selected="true">Inventario en 3 niveles</button>
+              <button type="button" role="tab" class="app-tab" data-tab="fefo" aria-selected="false">Trazabilidad FEFO</button>
+              <button type="button" role="tab" class="app-tab" data-tab="mermas" aria-selected="false">Control de mermas</button>
+            </div>
+          </div>
+
+          <!-- 1. Árbol -->
+          <div class="app-panel" data-panel="arbol" role="tabpanel">
+            <div class="arbol-niveles" aria-hidden="true"><span class="nv nv1">Departamento</span><span class="nv nv2">Familia</span><span class="nv nv3">Línea</span><span class="nv nv4">Producto</span></div>
+            <div class="arbol-tabla">
+              <div class="arbol-cab"><span>Nombre</span><span>Stock</span><span>Ubicación</span></div>
+              <ul class="arbol" id="arbol"></ul>
+            </div>
+            <p class="app-pie">Haz clic en un departamento, familia o línea para abrirlo o cerrarlo.</p>
+          </div>
+
+          <!-- 2. FEFO -->
+          <div class="app-panel" data-panel="fefo" role="tabpanel" hidden>
+            <div class="fefo-cab">
+              <label for="fefo-prod">Producto</label>
+              <select id="fefo-prod">
+                <option value="tomate">Tomate larga vida · R1</option>
+                <option value="pintura">Pintura látex blanca · 6B</option>
+                <option value="silicona">Silicona transparente · 6B</option>
+              </select>
+              <span class="fefo-regla">Orden de despacho: <b>FEFO</b> (primero vence, primero sale)</span>
+            </div>
+            <p class="alerta alerta-aviso" id="fefo-alerta"></p>
+            <div class="fefo-tabla-wrap">
+              <table class="fefo-tabla">
+                <thead><tr><th scope="col">Lote</th><th scope="col">Ingreso</th><th scope="col">Vence</th><th scope="col">Cantidad</th><th scope="col">Estado</th></tr></thead>
+                <tbody id="fefo-filas"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 3. Mermas -->
+          <div class="app-panel" data-panel="mermas" role="tabpanel" hidden>
+            <div class="mermas-grid">
+              <div class="mermas-ejes">
+                <h4>Merma del mes por eje <span>% sobre las ventas</span></h4>
+                <ul class="ejes" id="ejes"></ul>
+                <p class="mermas-total"><b>Total 1,8%</b> · dentro del rango óptimo (≤ 2,0%)</p>
+              </div>
+              <div class="mermas-frio">
+                <div class="frio-cab">
+                  <h4>Cámara de frío R1 <span>Temperatura, última hora</span></h4>
+                  <p class="frio-actual" id="frio-actual">3,6 °C</p>
+                </div>
+                <svg class="frio-graf" id="frio-graf" viewBox="0 0 400 170" role="img" aria-label="Temperatura de la cámara de frío R1 en la última hora; límite máximo 5 °C"></svg>
+                <div class="frio-acciones">
+                  <button type="button" class="app-btn" id="simular">Simular falla de frío</button>
+                  <button type="button" class="app-btn sec" id="restablecer" hidden>Restablecer</button>
+                </div>
+              </div>
+            </div>
+            <div class="feed">
+              <h4>Notificaciones</h4>
+              <ul id="feed">
+                <li class="n-serio"><span class="ico" aria-hidden="true">!</span><span><b>Pérdida operacional:</b> 2 sacos de cemento rotos al descargar · 4A</span><time>hace 1 h</time></li>
+                <li class="n-aviso"><span class="ico" aria-hidden="true">i</span><span><b>Vencimiento:</b> lote L-2410 de Tomate vence en 2 días</span><time>hace 3 h</time></li>
+              </ul>
+            </div>
+          </div>
+          <div class="app-toast" id="app-toast" role="status" hidden></div>
+        </div>
       </div>
     </div>
 
@@ -1117,6 +1287,179 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     // Estado de reposo visible aunque no se haya escaneado aún
     demo.querySelector('.ing-prod[data-prod="caja"]').classList.add('visible');
     demo.classList.add('listo'); datos(P.caja); $('ing-estado-txt').textContent = 'Producto identificado';
+  })();
+</script>
+<script>
+  // Vista previa del software: árbol de inventario, lotes FEFO y control de mermas
+  (function () {
+    var app = document.getElementById('app-inv'); if (!app) return;
+    var $ = function (id) { return document.getElementById(id); };
+
+    // Pestañas
+    var tabs = app.querySelectorAll('.app-tab'), panels = app.querySelectorAll('.app-panel');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var v = t.getAttribute('data-tab');
+        tabs.forEach(function (o) { var on = o === t; o.classList.toggle('activa', on); o.setAttribute('aria-selected', on ? 'true' : 'false'); });
+        panels.forEach(function (pn) { pn.hidden = pn.getAttribute('data-panel') !== v; });
+      });
+    });
+
+    // 1. Árbol Departamento > Familia > Línea > Producto
+    var ARBOL = [
+      ['Ferretería', '', '', [
+        ['Fijaciones', '', '', [
+          ['Tornillos', '', '', [['Tornillos volcanita 6 × 1"', '30 cajas', '4A'], ['Tornillos madera 8 × 1½"', '22 cajas', '4A']]],
+          ['Clavos', '', '', [['Clavos 3"', '14 kg', '8A'], ['Clavos 4"', '9 kg', '8A']]]
+        ]],
+        ['Herramientas eléctricas', '', '', [
+          ['Taladros', '', '', [['Taladro percutor 13 mm', '10 u.', '3B'], ['Atornillador inalámbrico', '7 u.', '3B']]]
+        ]]
+      ]],
+      ['Construcción', '', '', [
+        ['Áridos y cementos', '', '', [
+          ['Cemento', '', '', [['Cemento 25 kg', '60 sacos', '4A']]]
+        ]],
+        ['Pinturas', '', '', [
+          ['Látex', '', '', [['Pintura látex blanca 1 gal', '26 u.', '6B']]]
+        ]]
+      ]],
+      ['Alimentos', '', '', [
+        ['Frutas y verduras', '', '', [
+          ['Hortalizas', '', '', [['Tomate larga vida', '8 cajones', 'R1'], ['Lechuga escarola', '12 u.', 'R1']]]
+        ]]
+      ]]
+    ];
+    var TIPOS = ['Departamento', 'Familia', 'Línea'];
+    var ABIERTOS = { 'Ferretería': 1, 'Fijaciones': 1, 'Tornillos': 1, 'Alimentos': 1, 'Frutas y verduras': 1, 'Hortalizas': 1 };
+    function contar(n) { return n[3] ? n[3].reduce(function (a, h) { return a + (h[3] ? contar(h) : 1); }, 0) : 1; }
+    function nodo(n, d) {
+      var li = document.createElement('li'); li.className = 'd' + d;
+      var fila = document.createElement('div'); fila.className = 'fila';
+      if (n[3]) {
+        if (ABIERTOS[n[0]]) li.classList.add('abierto');
+        var b = document.createElement('button'); b.type = 'button';
+        b.setAttribute('aria-expanded', li.classList.contains('abierto') ? 'true' : 'false');
+        b.innerHTML = '<span class="flecha-n"></span><span></span><span class="tipo"></span>';
+        b.children[1].textContent = n[0]; b.children[2].textContent = TIPOS[d - 1];
+        b.addEventListener('click', function () { var on = li.classList.toggle('abierto'); b.setAttribute('aria-expanded', on ? 'true' : 'false'); });
+        var c1 = document.createElement('span'); c1.appendChild(b);
+        var c2 = document.createElement('span'); c2.textContent = contar(n) + ' prod.';
+        var c3 = document.createElement('span'); c3.textContent = '';
+        fila.appendChild(c1); fila.appendChild(c2); fila.appendChild(c3);
+        li.appendChild(fila);
+        var ul = document.createElement('ul');
+        n[3].forEach(function (h) { ul.appendChild(Array.isArray(h[3]) ? nodo(h, d + 1) : hoja(h)); });
+        li.appendChild(ul);
+      }
+      return li;
+    }
+    function hoja(h) {
+      var li = document.createElement('li'); li.className = 'd4';
+      var fila = document.createElement('div'); fila.className = 'fila';
+      var c1 = document.createElement('span'); c1.style.display = 'flex'; c1.style.alignItems = 'center'; c1.style.gap = '8px';
+      c1.innerHTML = '<span class="punto-p"></span><span></span>'; c1.children[1].textContent = h[0];
+      var c2 = document.createElement('span'); c2.textContent = h[1];
+      var c3 = document.createElement('span'); c3.textContent = h[2];
+      fila.appendChild(c1); fila.appendChild(c2); fila.appendChild(c3); li.appendChild(fila);
+      return li;
+    }
+    var arbol = $('arbol'); ARBOL.forEach(function (n) { arbol.appendChild(nodo(n, 1)); });
+
+    // 2. Lotes FEFO
+    var ROJO = '#ff3131', AMARILLO = '#f0a33a', VERDE = '#3aab46';
+    var LOTES = {
+      tomate: { alerta: '2 lotes de Tomate larga vida vencen esta semana. Despáchalos primero para evitar merma.', filas: [
+        ['L-2410', '20 oct', '29 oct', '2 cajones', 'Vence en 2 días', ROJO],
+        ['L-2413', '23 oct', '03 nov', '3 cajones', 'Vence en 7 días', AMARILLO],
+        ['L-2415', '27 oct', '08 nov', '3 cajones', 'Vigente', VERDE]] },
+      pintura: { alerta: '1 lote de Pintura látex blanca vence este mes.', filas: [
+        ['P-0912', '12 sep', '20 nov', '6 u.', 'Vence en 24 días', AMARILLO],
+        ['P-1004', '04 oct', '15 abr', '10 u.', 'Vigente', VERDE],
+        ['P-1021', '21 oct', '30 abr', '10 u.', 'Vigente', VERDE]] },
+      silicona: { alerta: '', filas: [
+        ['S-0830', '30 ago', '28 feb', '18 u.', 'Vigente', VERDE],
+        ['S-1015', '15 oct', '15 jul', '24 u.', 'Vigente', VERDE]] }
+    };
+    function fefo() {
+      var d = LOTES[$('fefo-prod').value], al = $('fefo-alerta'), tb = $('fefo-filas');
+      if (d.alerta) { al.className = 'alerta alerta-aviso'; al.textContent = d.alerta; }
+      else { al.className = 'alerta alerta-ok'; al.textContent = 'Sin lotes próximos a vencer.'; }
+      tb.innerHTML = '';
+      d.filas.forEach(function (f, i) {
+        var tr = document.createElement('tr'); if (i === 0 && f[5] === ROJO) tr.className = 'primero';
+        for (var k = 0; k < 4; k++) { var td = document.createElement('td'); td.textContent = f[k]; tr.appendChild(td); }
+        var te = document.createElement('td'), es = document.createElement('span');
+        es.className = 'estado'; es.style.setProperty('--c', f[5]); es.textContent = f[4]; te.appendChild(es);
+        if (i === 0) { var b = document.createElement('span'); b.className = 'despachar'; b.textContent = 'Despachar primero'; te.appendChild(b); }
+        tr.appendChild(te); tb.appendChild(tr);
+      });
+    }
+    $('fefo-prod').addEventListener('change', fefo); fefo();
+
+    // 3. Ejes de merma
+    var EJES = [['Vencimiento', 0.8], ['Operacional', 0.5], ['Consumo cliente', 0.3], ['Mantención', 0.2]];
+    var ejes = $('ejes'), MAX = 1.0;
+    EJES.forEach(function (e) {
+      var li = document.createElement('li');
+      li.innerHTML = '<span></span><span class="pista"><span class="valor"></span></span><span class="num"></span>';
+      li.children[0].textContent = e[0];
+      li.querySelector('.valor').style.width = (e[1] / MAX * 100) + '%';
+      li.children[2].textContent = e[1].toFixed(1).replace('.', ',') + '%';
+      li.title = e[0] + ': ' + e[1].toFixed(1).replace('.', ',') + '% de las ventas';
+      ejes.appendChild(li);
+    });
+
+    // Gráfico de temperatura (una sola serie, límite 5 °C)
+    var svg = $('frio-graf'), NS = 'http://www.w3.org/2000/svg';
+    var X0 = 34, X1 = 392, Y0 = 150, Y1 = 12, TMIN = 0, TMAX = 12, N = 30;
+    var base = [3.4, 3.5, 3.3, 3.6, 3.8, 3.5, 3.4, 3.6, 3.7, 3.5, 3.3, 3.4, 3.6, 3.5, 3.7, 3.8, 3.6, 3.4, 3.5, 3.6, 3.7, 3.5, 3.4, 3.6, 3.5, 3.6, 3.7, 3.5, 3.6, 3.6];
+    var datos = base.slice();
+    function y(t) { return Y0 - (t - TMIN) / (TMAX - TMIN) * (Y0 - Y1); }
+    function x(i) { return X0 + i / (N - 1) * (X1 - X0); }
+    function el(tag, at, txt) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); if (txt) e.textContent = txt; return e; }
+    function dibujar() {
+      svg.innerHTML = '';
+      [0, 4, 8, 12].forEach(function (t) { svg.appendChild(el('line', { x1: X0, x2: X1, y1: y(t), y2: y(t), 'class': 'grilla' })); svg.appendChild(el('text', { x: X0 - 6, y: y(t) + 4, 'text-anchor': 'end', 'class': 'eje' }, t + '°')); });
+      svg.appendChild(el('text', { x: X0, y: 166, 'class': 'eje' }, 'hace 60 min'));
+      svg.appendChild(el('text', { x: X1, y: 166, 'text-anchor': 'end', 'class': 'eje' }, 'ahora'));
+      svg.appendChild(el('line', { x1: X0, x2: X1, y1: y(5), y2: y(5), 'class': 'limite' }));
+      svg.appendChild(el('text', { x: X0 + 4, y: y(5) - 5, 'class': 'lim-txt' }, 'Máx. 5 °C'));
+      var pts = datos.map(function (t, i) { return x(i).toFixed(1) + ',' + y(t).toFixed(1); });
+      svg.appendChild(el('path', { d: 'M' + x(0) + ',' + Y0 + ' L' + pts.join(' L') + ' L' + x(N - 1) + ',' + Y0 + ' Z', 'class': 'area' }));
+      svg.appendChild(el('path', { d: 'M' + pts.join(' L'), 'class': 'linea' }));
+      var ult = datos[N - 1];
+      svg.appendChild(el('circle', { cx: x(N - 1), cy: y(ult), r: 5, 'class': 'fin' }));
+      $('frio-actual').textContent = ult.toFixed(1).replace('.', ',') + ' °C';
+    }
+    dibujar();
+
+    var anim = null, reducido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var subida = [4.1, 4.9, 5.8, 6.7, 7.5, 8.2, 8.8, 9.2, 9.4];
+    function alertar() {
+      app.classList.add('falla');
+      var t = $('app-toast');
+      t.innerHTML = '<span><b>Cámara de frío R1: 9,4 °C</b>Supera el máximo de 5 °C. Revisa el equipo para evitar la pérdida de 8 cajones de Tomate.</span>';
+      t.hidden = false;
+      var li = document.createElement('li'); li.className = 'n-critico nuevo';
+      li.innerHTML = '<span class="ico" aria-hidden="true">!</span><span><b>Mantención:</b> Cámara de frío R1 a 9,4 °C, sobre el límite de 5 °C</span><time>ahora</time>';
+      $('feed').insertBefore(li, $('feed').firstChild);
+      $('restablecer').hidden = false;
+    }
+    $('simular').addEventListener('click', function () {
+      var b = this; b.disabled = true; var k = 0;
+      if (reducido) { datos = datos.slice(subida.length).concat(subida); dibujar(); alertar(); return; }
+      anim = setInterval(function () {
+        datos.shift(); datos.push(subida[k++]); dibujar();
+        if (k >= subida.length) { clearInterval(anim); alertar(); }
+      }, 260);
+    });
+    $('restablecer').addEventListener('click', function () {
+      clearInterval(anim); datos = base.slice(); dibujar();
+      app.classList.remove('falla'); $('app-toast').hidden = true;
+      var n = $('feed').querySelector('.n-critico'); if (n) n.remove();
+      this.hidden = true; $('simular').disabled = false;
+    });
   })();
 </script>
 </body>
