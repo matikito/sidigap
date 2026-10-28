@@ -16,6 +16,9 @@
   color-scheme: light;
   --teal: #0a7e8f;
   --verde: #17a488;
+  --verde-logo: #3aab46;
+  --resalte: rgba(58, 171, 70, .12);
+  --resalte-hover: rgba(58, 171, 70, .22);
   --petroleo: #003a43;
   --blanco: #ffffff;
   --negro: #000000;
@@ -50,10 +53,13 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .nav .wrap { height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
 .nav-logo { position: absolute; left: max(14px, env(safe-area-inset-left, 0px)); top: 8px; width: 28px; }
 .nav nav { margin-inline: auto; }
-.nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: clamp(24px, 7vw, 96px); }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: clamp(10px, 5vw, 72px); }
 .nav li { text-align: center; }
-.nav a { display: inline-block; text-decoration: none; text-transform: uppercase; color: var(--teal); font-size: clamp(15px, 1.38vw, 18.67px); line-height: 26px; padding-block: 1px 12px; border-bottom: 2px solid transparent; transition: border-color .2s; }
-.nav a.activo { border-bottom-color: var(--teal); }
+.nav a { position: relative; display: inline-block; text-decoration: none; text-transform: uppercase; color: var(--teal); font-size: clamp(15px, 1.38vw, 18.67px); line-height: 26px; padding: 5px clamp(12px, 1.2vw, 18px); border-radius: 10px; background: var(--resalte); transition: background-color .2s; }
+.nav a:hover { background: var(--resalte-hover); }
+.nav a::after { content: ""; position: absolute; left: clamp(12px, 1.2vw, 18px); right: clamp(12px, 1.2vw, 18px); bottom: -8px; height: 2px; background: transparent; transition: background-color .2s; }
+.nav a.activo::after { background: var(--teal); }
+@media (max-width: 360px) { .nav ul { gap: 8px; } .nav a { padding-inline: 9px; font-size: 14px; } .nav a::after { left: 9px; right: 9px; } }
 
 /* ---------- Video con logo (hero de inicio y cierre) ---------- */
 .video-logo { position: relative; overflow: hidden; background: #1c2a2f center / cover no-repeat; aspect-ratio: 1351 / 760; min-height: 440px; max-height: 760px; width: 100%; }
