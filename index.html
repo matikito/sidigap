@@ -1086,7 +1086,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       var d = P[id]; limpiar();
       demo.classList.remove('listo', 'escaneando');
       prods.forEach(function (g) { g.classList.remove('visible'); });
-      datos(null);
+      datos(d);
+      $('ing-conf-barra').style.width = '0';
+      $('ing-conf').textContent = '…';
       $('ing-estado-txt').textContent = 'Producto en camino…';
       $('ing-tag-txt').textContent = d.tag;
       var paso = function (fn, ms) { timers.push(setTimeout(fn, reducido ? 0 : ms)); };
@@ -1095,7 +1097,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
       paso(function () {
         demo.classList.remove('escaneando'); demo.classList.add('listo');
         $('ing-estado-txt').textContent = 'Producto identificado';
-        datos(d);
+        $('ing-conf-barra').style.width = d.conf + '%';
+        $('ing-conf').textContent = d.conf + '%';
       }, 2300);
     }
     chips.forEach(function (c) {
