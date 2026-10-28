@@ -160,7 +160,19 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .desliza { display: none; margin: 0 0 6px; font-family: var(--font-a); font-size: 13px; color: var(--teal); text-align: right; }
 @media (max-width: 700px) { .desliza { display: block; } }
 .diagrama svg { display: block; width: 100%; min-width: 640px; height: auto; font-family: var(--font-b); }
-.vision { padding-block: 30px 0; min-height: 360px; }
+.vision { margin-top: 30px; }
+.vision-banda { background: var(--teal); color: var(--texto-claro); padding-block: 26px 30px; }
+.vision-banda h2 { margin: 0 0 10px; text-align: center; color: var(--texto-claro); font-weight: 700; font-size: clamp(26px, 3.16vw, 42.67px); line-height: 1.38; text-wrap: balance; }
+.vision-banda p { margin: 0 auto; max-width: 1140px; font-weight: 700; font-size: clamp(17px, 1.78vw, 24px); line-height: 1.45; text-align: justify; hyphens: auto; }
+.vision-foto { width: 100%; height: auto; display: block; }
+.modulo { padding-block: 44px 8px; color: var(--teal); }
+.modulo + .modulo { padding-top: 28px; }
+.modulo:last-of-type { padding-bottom: 72px; }
+.modulo h2 { margin: 0 0 22px; font-weight: 700; font-size: clamp(22px, 1.98vw, 26.67px); line-height: 1.3; }
+.modulo p, .modulo li { font-weight: 700; font-size: clamp(17px, 1.78vw, 24px); line-height: 1.45; text-align: justify; hyphens: auto; }
+.modulo p { margin: 0 0 4px; max-width: 1220px; }
+.modulo ul { margin: 0; padding-left: 1.6em; max-width: 1220px; }
+.modulo li { padding-left: .2em; }
 
 /* ---------- Mapa de calor ---------- */
 .calor-panel { display: flex; flex-direction: column; gap: 14px; margin: 8px 0 4px; }
@@ -527,9 +539,36 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     </div>
 
     <div class="vision">
-      <div class="wrap">
-        <h2>Módulo de Visión Computacional</h2>
+      <div class="vision-banda">
+        <div class="wrap">
+          <h2>Módulo de Visión Computacional</h2>
+          <p>No confiamos a ciegas en el ingreso manual. Integramos un circuito de cámaras IP respaldadas por modelos de Inteligencia Artificial que actúan como validadores visuales del movimiento de tu mercadería a la vez que incorporamos distintos sensores IoT para mantener un control y adaptarnos a las necesidades de la empresa.</p>
+        </div>
       </div>
+      <img class="vision-foto" src="img/vision-computacional.webp" width="1252" height="544" loading="lazy" alt="Cámara IP vigilando los pasillos de una bodega y un operario con grúa horquilla; al centro el logo de SIDIGAP con íconos de validación y sensor de temperatura">
+    </div>
+
+    <div class="modulo">
+      <div class="wrap">
+        <h2>Módulo de Sistema de Inventario y Control de Mermas</h2>
+        <p>Estructuramos tu inventario en tres niveles precisos (Departamento, Familia y Línea) para erradicar el caos operativo y proteger la rentabilidad de tu negocio.</p>
+        <ul>
+          <li>Gestión por Trazabilidad (FEFO/FIFO): El sistema monitorea automáticamente las fechas de vencimiento y rotación de los lotes, enviando alertas preventivas antes de que los productos caduquen en las estanterías.</li>
+          <li>Control Inteligente de Mermas: Basado en los cuatro ejes clave de merma (Vencimiento, Operacional, Consumo Cliente y Mantención), SIDIGAP detecta anomalías en tiempo real. Si un equipo de frío presenta fallas térmicas o se genera una pérdida operacional, la plataforma genera una notificación inmediata para evitar pérdidas millonarias.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="modulo">
+      <div class="wrap">
+        <h2>Módulo de Informes Automáticos de Bodega</h2>
+        <p>Toma decisiones estratégicas respaldadas por datos concretos sin perder horas armando planillas manualmente.</p>
+        <ul>
+          <li>Reportes Consolidados en Un Clic: Genera automáticamente informes ejecutivos sobre el estado del stock, índices de rotación, proyección de compras y valorización total del inventario.</li>
+          <li>Auditoría de Mermas e Incidencias: Obtén métricas detalladas sobre el porcentaje de merma sobre las ventas (manteniendo el rango óptimo), identificando qué áreas, equipos o productos están generando pérdidas y facilitando auditorías inmediatas.</li>
+        </ul>
+      </div>
+    </div>
     </div>
 
   </section>
